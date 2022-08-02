@@ -1,0 +1,44 @@
+---
+import PostNavLink from "@components/post/PostNavLink.astro";
+import type { PostNavigationProps } from "src/util/props.types";
+
+const { headings } = Astro.props as PostNavigationProps
+---
+
+<h2 class="text-2xl font-extrabold pb-2">On this page:</h2>
+<nav id="post-navigation-list" class="max-h-[calc(100vh-4rem-5rem-1px)] overflow-y-auto p-1">
+    <ul class="">
+        {
+        headings.map(({text, depth, slug}) => (
+        <PostNavLink text={text} depth={depth} slug={slug} />))
+        }
+    </ul>
+</nav>
+<script>
+
+    const postNavigationList = document.getElementById('post-navigation-list')
+    const postNavigationLinks = postNavigationList.getElementsByTagName('li')
+
+    const headingsElements = document.getElementsByTagName('article')[0].querySelectorAll('h2, h3, h4, h5, h6')
+    const headingsElementsHeights = []
+    headingsElements.forEach((heading) => {
+        headingsElementsHeights.push((heading as HTMLElement).offsetTop)
+    })
+
+    const classNames = ['border-cyan-800', 'shadow-xl']
+
+    document.addEventListener('scroll', () => {
+        const scrollValue = window.scrollY
+        let set = false
+        headingsElementsHeights.forEach((value, index) => {
+            // 96px -> header height, 3px -> offset
+            if (!set && value - scrollValue > 96 + 6) {
+                set = true
+                postNavigationLinks[index - 1]?.classList.add(...classNames)
+            }
+            else {
+                postNavigationLinks[index - 1]?.classList.remove(...classNames)
+            }
+        })
+    })
+</script>

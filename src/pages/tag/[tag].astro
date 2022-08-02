@@ -1,0 +1,18 @@
+---
+import { markdownFiles } from "src/util/file.util.astro";
+
+export async function getStaticPaths() {
+    return markdownFiles
+        .map(value => value.frontmatter.tags)
+        .flat()
+        .filter((value, index, self) => self.indexOf(value) === index)
+        .map(value => value.replace("/", ""))
+        .map(value => ({
+            params: { tag: value },
+        }))
+}
+
+const { tag } = Astro.params
+---
+
+<h1 class="text-4xl font-extrabold">{tag}</h1>

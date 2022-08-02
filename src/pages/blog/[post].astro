@@ -1,0 +1,76 @@
+---
+import BaseHead from "@components/BaseHead.astro";
+import Header from "@components/post/Header.astro";
+import PostHeader from "@components/post/PostTitle.astro";
+import PostInfo from "@components/post/PostInfo.astro";
+import PostNavigation from "@components/post/PostNavigation.astro";
+import type { MarkdownHeading } from "astro";
+import type { PostMarkdown } from "src/util/types";
+import { markdownFiles } from "src/util/file.util.astro";
+import "src/styles/prism.css"
+
+export async function getStaticPaths() {
+    return markdownFiles.map((value, index, self) => ({
+        params: { post: value.slug },
+        props: {
+            post: value,
+            prev: self[index - 1]?.slug,
+            next: self[index + 1]?.slug
+        }
+    }))
+}
+
+const post: PostMarkdown = Astro.props.post
+const prev: string | null = Astro.props.prev
+const next: string | null = Astro.props.next
+
+const PostContent = post.Content
+const headings: MarkdownHeading[] = await post.getHeadings()
+const tags = post.frontmatter.tags
+---
+
+<html class="scroll-pt-24">
+
+<head>
+    <BaseHead title={post.frontmatter.title} description={post.frontmatter.description} />
+</head>
+
+<body>
+    <Header />
+    <PostHeader frontmatter={post.frontmatter} />
+    <main class="pt-8 max-w-7xl mx-auto px-4
+                grid gap-4 
+                grid-cols-1
+                sm:grid-cols-2
+                md:[grid-template-columns:auto_auto] md:[grid-template-rows:auto_1fr]
+                xl:[grid-template-columns:1fr_auto_1fr] xl:order-none
+                ">
+        <aside class="
+                    md:order-3
+                    xl:order-none
+                ">
+            <div class="sticky top-24 md:max-w-xs md:ml-auto xl:max-w-none xl:ml-0">
+                <PostNavigation headings={headings} />
+            </div>
+        </aside>
+        <article class="mx-auto overflow-hidden 
+                    prose prose-cyan md:prose-lg xl:prose-xl max-w-full lg:max-w-prose
+                    order-last 
+                    sm:order-last sm:col-span-2
+                    md:row-span-2 md:col-span-1 md:order-2
+                    xl:order-none xl:row-span-1">
+            <PostContent />
+        </article>
+        <aside class="
+                    md:order-1
+                    xl:order-none">
+            <div class="sticky top-24 
+                    md:max-w-xs md:ml-auto 
+                    xl:max-w-none xl:ml-0">
+                <PostInfo tags={tags} prev={prev} next={next} />
+            </div>
+        </aside>
+    </main>
+</body>
+
+</html>
