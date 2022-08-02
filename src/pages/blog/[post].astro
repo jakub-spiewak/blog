@@ -39,7 +39,7 @@ const tags = post.frontmatter.tags
     <Header />
     <PostHeader frontmatter={post.frontmatter} />
     <main class="pt-8 max-w-7xl mx-auto px-4
-                grid gap-4 
+                grid gap-8 
                 grid-cols-1
                 sm:grid-cols-2
                 md:[grid-template-columns:auto_auto] md:[grid-template-rows:auto_1fr]
@@ -49,12 +49,14 @@ const tags = post.frontmatter.tags
                     md:order-3
                     xl:order-none
                 ">
-            <div class="sticky top-24 md:max-w-xs md:ml-auto xl:max-w-none xl:ml-0">
+            <div class="sticky top-24 px-4
+                    md:max-w-xs md:ml-auto 
+                    xl:max-w-none xl:ml-0">
                 <PostNavigation headings={headings} />
             </div>
         </aside>
         <article class="mx-auto overflow-hidden 
-                    prose prose-cyan md:prose-lg xl:prose-xl max-w-full lg:max-w-prose
+                    prose prose-cyan md:prose-lg max-w-full lg:max-w-prose
                     order-last 
                     sm:order-last sm:col-span-2
                     md:row-span-2 md:col-span-1 md:order-2
@@ -64,7 +66,7 @@ const tags = post.frontmatter.tags
         <aside class="
                     md:order-1
                     xl:order-none">
-            <div class="sticky top-24 
+            <div class="sticky top-24 px-4
                     md:max-w-xs md:ml-auto 
                     xl:max-w-none xl:ml-0">
                 <PostInfo tags={tags} prev={prev} next={next} />

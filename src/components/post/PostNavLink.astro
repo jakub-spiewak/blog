@@ -4,8 +4,8 @@ import type { MarkdownHeading } from "astro";
 const { depth, text, slug } = Astro.props as MarkdownHeading
 ---
 
-<li id={`nav-heading-${slug}`} class="mb-1 mr-1 flex rounded-full hover:bg-slate-600 hover:text-slate-100 hover:shadow-xl border border-transparent">
-    <a style={`padding-left: ${depth}rem;`} href={`#${slug}`} class="p-1 pr-4 rounded-full truncate w-full inline-block">
+<li id={`nav-heading-${slug}`} class="font-sm text-gray-500 border-l-2 leading-snug border-gray-300">
+    <a style={`padding-left: ${(depth - 1) * 0.66}rem;`} href={`#${slug}`} class="truncate w-[99%] inline-block">
         {text}
     </a>
 </li>
