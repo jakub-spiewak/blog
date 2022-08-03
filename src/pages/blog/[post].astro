@@ -8,6 +8,7 @@ import type { MarkdownHeading } from "astro";
 import type { PostMarkdown } from "src/util/types";
 import { markdownFiles } from "src/util/file.util.astro";
 import "src/styles/prism.css"
+import "src/styles/base.css"
 
 export async function getStaticPaths() {
     return markdownFiles.map((value, index, self) => ({
@@ -35,7 +36,7 @@ const tags = post.frontmatter.tags
     <BaseHead title={post.frontmatter.title} description={post.frontmatter.description} />
 </head>
 
-<body>
+<body class="text-skin-base bg-skin-main transition-all">
     <Header />
     <PostHeader frontmatter={post.frontmatter} />
     <main class="pt-8 max-w-7xl mx-auto px-4

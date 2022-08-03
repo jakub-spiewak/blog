@@ -1,5 +1,5 @@
 .inline-code, code:not([class]) {
-  @apply bg-slate-200 text-slate-900 py-1 px-2 rounded-md font-medium !important
+  @apply bg-skin-main-muted text-skin-muted py-1 px-2 rounded-md font-bold !important
 }
 
 .inline-code::before, .inline-code::after, code:not([class])::before, code:not([class])::after {
@@ -7,7 +7,7 @@
 }
 
 .code-title {
-  @apply rounded-t-lg bg-gray-700 px-5 py-3 font-mono text-sm font-bold text-gray-200 border-b border-b-slate-500/50;
+  @apply rounded-t-lg bg-skin-main-inverted dark:bg-skin-main-muted text-skin-inverted dark:text-skin-muted px-5 py-3 font-mono text-sm font-bold border-b border-b-skin-main;
 }
 
 .code-title + pre {
