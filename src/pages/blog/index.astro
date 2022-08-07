@@ -10,9 +10,10 @@ const posts = markdownFiles
 
 <BaseHTMLPage title={`Jakub Śpiewak Blog`}>
     <main class="max-w-7xl mx-auto my-auto">
-        <ul class="flex flex-col gap-8 mt-4">
+        <h1 class="text-4xl pt-4 font-extralight"><span class="font-extrabold">Latest</span> articles</h1>
+        <ul class="flex flex-col gap-8 mt-4 pt-4 divide-y divide-ether-text3">
             {posts.map(({frontmatter, rawContent, slug}) => (
-            <li>
+            <li class="py-4">
                 <PostCard frontmatter={frontmatter} slug={slug} readTime={readtime(rawContent()).minutes} />
             </li>
             ))}

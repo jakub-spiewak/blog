@@ -1,51 +1,22 @@
 ---
+import BaseHTMLPage from "@components/common/BaseHTMLPage.astro";
+import PostCard from "@components/post/PostCard.astro";
+import readtime from "reading-time"
 import { markdownFiles } from "src/util/file.util.astro";
-import BaseHead from "@components/common/BaseHead.astro";
-
-let title = "Example Blog";
-let description = "The perfect starter for your perfect blog.";
 
 const posts = markdownFiles
 ---
 
-<html lang="en">
 
-<head>
-	<BaseHead title={title} description={description} />
-</head>
-
-<body>
-	<div class="wrapper">
-		<main class="content">
-			<section class="intro">
-				<h1>{title}</h1>
-				<p>{description}</p>
-			</section>
-			<section aria-label="Blog post list">
-				{posts.map((post) => (
-				<div><a href={`/blog/${post.slug}`}>{post.frontmatter.title}</a></div>
-				))}
-			</section>
-		</main>
-	</div>
-</body>
-
-</html>
-
-<style>
-	.content {
-		margin-top: 4rem;
-		margin-bottom: 8rem;
-	}
-
-	.intro {
-		padding-bottom: 4rem;
-		margin-bottom: 2rem;
-		border-bottom: 4px solid var(--theme-divider);
-	}
-
-	h1 {
-		font-size: 2.5rem;
-		font-weight: 700;
-	}
-</style>
+<BaseHTMLPage title={`Jakub Śpiewak Blog`}>
+    <main class="max-w-7xl mx-auto my-auto">
+        <h1 class="text-4xl font-extralight"><span class="font-extrabold">Latest</span> articles</h1>
+        <ul class="flex flex-col gap-8 mt-4 pt-4 divide-y divide-ether-text3">
+            {posts.map(({frontmatter, rawContent, slug}) => (
+            <li class="py-4">
+                <PostCard frontmatter={frontmatter} slug={slug} readTime={readtime(rawContent()).minutes} />
+            </li>
+            ))}
+        </ul>
+    </main>
+</BaseHTMLPage>

@@ -13,14 +13,13 @@ const tags: { amount: number, text: string }[] = tagsNames.map(value => {
     }
 })
     .sort((a, b) => b.amount - a.amount)
-
 ---
 
-<BaseHTMLPage>
+<BaseHTMLPage title="Tags - Jakub Śpiewak">
     <main
-        class="max-w-7xl mx-auto my-auto flex items-center justify-center gap-8 h-full md:divide-x px-2 py-4 flex-col md:flex-row">
+        class="max-w-7xl mx-auto my-auto flex items-start md:items-center justify-center gap-8 h-full md:divide-x p-4 flex-col md:flex-row divide-y md:divide-y-0">
         <h1 class="text-7xl font-extralight">Tags</h1>
-        <section class="pl-8 flex flex-wrap gap-4">
+        <section class="pl-8 flex flex-wrap gap-4 pt-4">
             {tags.map(({amount, text}) => (
             <PostTag text={text} amount={amount} />
             ))}
