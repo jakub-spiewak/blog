@@ -23,26 +23,33 @@ const codeTitlesPlugin = () => {
         return;
       }
 
-      const className = 'code-title'
+      const id = `code-title-${index}`
 
       const titleNode = {
         type: 'html',
-        value: `<div class="${className}">${title}</div>`.trim()
+        value: `<div id="${id}" class="code-title">
+                  ${title}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    fill="none"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                    />
+                  </svg>
+                </div>
+                `
+          .trim()
       };
 
       tree.children.splice(index, 0, titleNode);
       node.lang = language;
     });
-}
-
-const inlineCodePlugin = () => {
-  return (tree) => visit(tree, 'inlineCode', (node, index, parent) => {
-    // TODO: not work with Astro.getHeadings()
-    // parent.children.splice(index, 1, {
-    //     type: 'html',
-    //     value: `<code class="inline-code">${node.value}</code>`.trim()
-    // })
-  })
 }
 
 // https://astro.build/config
@@ -84,7 +91,6 @@ export default defineConfig({
     ],
     remarkPlugins: [
       codeTitlesPlugin,
-      inlineCodePlugin
     ]
   }
 });

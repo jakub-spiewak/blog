@@ -3,6 +3,26 @@ module.exports = {
 	content: ['./src/**/*.{astro,html,js,jsx,md,svelte,ts,tsx,vue}'],
 	theme: {
 		extend: {
+			colors: {
+				ether: {
+					text1: 'var(--ether-text1)',
+					text2: 'var(--ether-text2)',
+					text3: 'var(--ether-text3)',
+					inverted: 'var(--ether-text-inverted)',
+					surface1: 'var(--ether-surface1)',
+					surface2: 'var(--ether-surface2)',
+					surface3: 'var(--ether-surface3)',
+					secondary1: 'var(--ether-color-secondary1)',
+					secondary2: 'var(--ether-color-secondary2)',
+				},
+				'ether-common': {
+					'dark1': 'var(--ether-dark1)',
+					'dark1-2': 'var(--ether-dark1-2)',
+					'dark2': 'var(--ether-dark2)',
+					'dark3': 'var(--ether-dark3)',
+					'gray-200': 'var(--ether-color-pure-neutral-200)',
+				}
+			},
 			fontFamily: {
 				magiel: ["Magiel", "sans-serif"],
 				nocturn: ["Nocturn", "sans-serif"],
@@ -10,36 +30,35 @@ module.exports = {
 			typography: (theme) => ({
 				DEFAULT: {
 					css: {
-						'--tw-prose-body': 'var(--color-text-base)',
-						'--tw-prose-headings': 'var(--color-text-base)',
+						'--tw-prose-body': 'var(--ether-text1)',
+						'--tw-prose-headings': 'var(--ether-text1)',
 					}
 				}
 			}),
 			textColor: {
-				skin: {
-					base: 'var(--color-text-base)',
-					muted: 'var(--color-text-muted)',
-					inverted: 'var(--color-text-inverted)',
-					accent: 'var(--color-text-accent)',
+				ether: {
 				}
 			},
 			backgroundColor: {
-				skin: {
-					main: 'var(--color-bg-main)',
-					'main-muted': 'var(--color-bg-main-muted)',
-					'main-inverted': 'var(--color-bg-main-inverted)',
-					'main-accent': 'var(--color-bg-main-accent)',
+				ether: {
 				}
 			},
 			borderColor: {
-				skin: {
-					main: 'var(--color-border-main)',
-					'main-inverted': 'var(--color-border-main-inverted)',
-					accent: 'var(--accent)',
+				ether: {
+				}
+			},
+			stroke: {
+				ether: {
 				}
 			}
 		},
 	},
 	darkMode: 'class',
-	plugins: [require('@tailwindcss/typography')],
+	plugins: [
+		require('@tailwindcss/typography'),
+		require('@catppuccin/tailwindcss')({
+			prefix: 'ctp',
+			defaultFlavour: 'latte'
+		}),
+	],
 }

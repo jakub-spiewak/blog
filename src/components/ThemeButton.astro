@@ -1,5 +1,9 @@
-<button id="theme-button">
-    Theme
+---
+import ThemeIcon from "./icons/ThemeIcon.astro";
+
+---
+<button id="theme-button" class="w-8">
+    <ThemeIcon/>
 </button>
 <script>
     const isDarkSet = localStorage.theme === 'dark';
@@ -12,8 +16,10 @@
         document.documentElement.classList.remove('dark')
     }
     const button = document.getElementById("theme-button")
+    const link = document.getElementById("theme-link")
     button.addEventListener("click", () => {
         document.documentElement.classList.toggle('dark')
         localStorage.theme = localStorage.theme === 'dark' ? 'light' : 'dark'
+        link.setAttribute('href', `/styles/prism-${localStorage.theme}.css`);
     })
 </script>

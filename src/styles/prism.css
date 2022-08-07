@@ -1,25 +1,40 @@
-.inline-code, code:not([class]) {
-  @apply bg-skin-main-muted text-skin-muted py-1 px-2 rounded-md font-bold !important
+.inline-code,
+code:not([class]) {
+  @apply bg-ether-surface2 text-ether-text2 py-1 px-2 rounded-md font-bold !important;
 }
 
-.inline-code::before, .inline-code::after, code:not([class])::before, code:not([class])::after {
+.inline-code::before,
+.inline-code::after,
+code:not([class])::before,
+code:not([class])::after {
   @apply content-none !important;
 }
 
+pre,
+[class*="language"] {
+  /* @apply bg-ether-surface2 !important; */
+  @apply rounded-xl !important;
+}
+
 .code-title {
-  @apply rounded-t-lg bg-skin-main-inverted dark:bg-skin-main-muted text-skin-inverted dark:text-skin-muted px-5 py-3 font-mono text-sm font-bold border-b border-b-skin-main;
+  @apply flex justify-between items-center rounded-t-xl px-5 py-3 font-mono text-sm font-bold text-ether-common-gray-200 border-b-2 border-b-ether-common-dark3 bg-ether-common-dark1-2;
 }
 
 .code-title + pre {
-  @apply mt-0 rounded-t-none;
+  @apply mt-0 rounded-t-none !important;
 }
 
+.code-title svg {
+  @apply w-8 opacity-40 hover:opacity-100 cursor-pointer;
+}
+
+/* Code block styles */
 .code-highlight {
-  @apply float-left min-w-full;
+  @apply float-left min-w-full px-6;
 }
 
 .code-line {
-  @apply -mx-6 block border-l-4 border-transparent pl-6 pr-6 leading-5 text-base;
+  @apply block border-l-4 border-transparent leading-5 text-base -mx-6 px-4;
 }
 
 .code-line.inserted {
@@ -31,7 +46,7 @@
 }
 
 .highlight-line {
-  @apply -mx-6 border-l-4 border-cyan-500 bg-gray-600 bg-opacity-50;
+  @apply border-l-4 border-ether-secondary1 bg-ether-common-dark1-2;
 }
 
 .line-number::before {
@@ -39,6 +54,14 @@
   content: attr(line);
 }
 
+/* Token styles */
+/**
+ * MIT License
+ * Copyright (c) 2018 Sarah Drasner
+ * Sarah Drasner's[@sdras] Night Owl
+ * Ported by Sara vieria [@SaraVieira]
+ * Added by Souvik Mandal [@SimpleIndian]
+ */
 .token.comment,
 .token.prolog,
 .token.cdata {

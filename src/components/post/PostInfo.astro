@@ -6,12 +6,12 @@ const { tags, next, prev } = Astro.props as PostInfoProps
 
 <div class="divide-y">
     <div class="mb-8">
-        <h2 class="text-2xl font-magiel py-2">Tags:</h2>
-        <ul class="gap-2 mt-2 text-xs uppercase flex flex-wrap">
+        <h2 class="text-2xl font-semibold py-2">Tags:</h2>
+        <ul class="gap-2 mt-2 text-xs uppercase flex flex-wrap justify-between">
             {
             [...tags, ...tags, ...tags].sort(() => Math.random() - .5).map((tag) => (
             <li class="my-1 shadow-2xl">
-                <a href={`/tag/${tag.replace("/", "")}`} class="py-1 px-2 rounded-full bg-skin-main-accent text-skin-inverted">
+                <a href={`/tag/${tag.replace("/", "")}`} class="py-1 px-2 rounded-full bg-ether-secondary1 text-ether-inverted dark:text-ether-surface1">
                     {tag}
                 </a>
             </li>
@@ -19,7 +19,7 @@ const { tags, next, prev } = Astro.props as PostInfoProps
         </ul>
     </div>
     <div class="py-4 flex md:flex-col justify-between">
-        {next && <a class="text-lg text-skin-accent" href={`/blog/${next}`}>Go to next post</a>}
-        {prev && <a class="text-lg text-skin-accent" href={`/blog/${prev}`}>Go to previous post</a>}
+        {next && <a class="text-lg text-ether-secondary1" href={`/blog/${next}`}>Go to next post</a>}
+        {prev && <a class="text-lg text-ether-secondary1" href={`/blog/${prev}`}>Go to previous post</a>}
     </div>
 </div>

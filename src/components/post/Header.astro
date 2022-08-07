@@ -3,11 +3,18 @@ import ThemeButton from "@components/ThemeButton.astro";
 
 ---
 
-<header class="sticky top-0 z-10 shadow-xl border-b border-gray-600/50 bg-skin-main">
+<header class="sticky top-0 z-10 shadow-xl border-b border-gray-600/50 bg-ether-surface1 dark:shadow-ether-surface1">
     <div class="max-w-7xl mx-auto p-4 flex justify-between">
-        <h2 class="text-2xl text-skin-base font-magiel">
+        <h2 class="text-2xl font-magiel">
             Jakub Śpiewak Blog
         </h2>
-        <ThemeButton />
+        <div class="flex items-center font-light text-xl">
+            <div class="hidden md:flex mr-4 gap-4">
+                <a href="/blog">Blog</a>
+                <a href="/about">About</a>
+                <a href="/tags">Tags</a>
+            </div>
+            <ThemeButton />
+        </div>
     </div>
 </header>

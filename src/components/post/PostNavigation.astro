@@ -5,9 +5,9 @@ import type { PostNavigationProps } from "src/util/props.types";
 const { headings } = Astro.props as PostNavigationProps
 ---
 
-<h2 class="text-2xl pb-2 font-magiel">On this page:</h2>
-<nav id="post-navigation-list" class="max-h-[calc(100vh-4rem-5rem-1px)] overflow-y-auto p-1 ">
-    <ul class="text-skin-muted max-w-full">
+<h2 class="text-2xl font-semibold pb-2 text-ether-text1">On this page:</h2>
+<nav id="post-navigation-list" class="max-h-[calc(100vh-4rem-5rem-1px)] overflow-y-auto p-1 overflow-x-hidden">
+    <ul class="max-w-full text-ether-text2">
         {
         headings.map(({text, depth, slug}) => (
         <PostNavLink text={text} depth={depth} slug={slug} />))
@@ -25,7 +25,7 @@ const { headings } = Astro.props as PostNavigationProps
         headingsElementsHeights.push((heading as HTMLElement).offsetTop)
     })
 
-    const classNames = ['border-skin-main', 'drop-shadow-md']
+    const classNames = ['text-ether-secondary1', 'font-bold', 'border-ether-secondary1']
 
     document.addEventListener('scroll', () => {
         const scrollValue = window.scrollY

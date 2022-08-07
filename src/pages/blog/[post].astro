@@ -36,10 +36,10 @@ const tags = post.frontmatter.tags
     <BaseHead title={post.frontmatter.title} description={post.frontmatter.description} />
 </head>
 
-<body class="text-skin-base bg-skin-main transition-all">
+<body class="text-ether-text1 bg-ether-surface1">
     <Header />
     <PostHeader frontmatter={post.frontmatter} />
-    <main class="pt-8 max-w-7xl mx-auto px-4
+    <main class="pt-8 max-w-7xl mx-auto 
                 grid gap-8 
                 grid-cols-1
                 sm:grid-cols-2
@@ -56,8 +56,9 @@ const tags = post.frontmatter.tags
                 <PostNavigation headings={headings} />
             </div>
         </aside>
-        <article class="mx-auto overflow-hidden 
-                    prose prose-cyan md:prose-lg max-w-full lg:max-w-prose
+        <article class="mx-auto overflow-hidden
+                    prose md:prose-lg max-w-full lg:max-w-prose text-skin-base prose-headings:text-skin-base 
+                    prose-a:text-ether-secondary1
                     order-last 
                     sm:order-last sm:col-span-2
                     md:row-span-2 md:col-span-1 md:order-2
@@ -74,6 +75,38 @@ const tags = post.frontmatter.tags
             </div>
         </aside>
     </main>
+    <footer class="bg-ether-surface2 border-t border-t-gray-500">
+        <div class="flex items-center justify-center p-8 text-ether-text3">
+            Copyright © {new Date(post.frontmatter.date).getFullYear()} jakubspiewak.com, All rights reserved.
+        </div>
+    </footer>
 </body>
+<script>
+
+    const copiedPath = "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+    const idlePath = "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+
+    const codeTitlesElements = document.querySelectorAll("*[id^=code-title]")
+    codeTitlesElements.forEach(element => {
+        element.addEventListener('click', () => {
+            navigator.clipboard.writeText(element.nextElementSibling.textContent)
+                .then(() => {
+                    const svgElement = element.children[0]
+                    const svgPathElement = svgElement.children[0]
+
+                    svgPathElement.setAttribute("d", copiedPath)
+                    svgElement.classList.toggle('text-green-500')
+                    svgElement.classList.toggle('force-opacity')
+
+                    const timeoutId = setTimeout(() => {
+                        svgPathElement.setAttribute("d", idlePath)
+                        svgElement.classList.toggle('text-green-500')
+                        svgElement.classList.toggle('force-opacity')
+                        clearTimeout(timeoutId)
+                    }, 2000)
+                })
+        })
+    })
+</script>
 
 </html>
