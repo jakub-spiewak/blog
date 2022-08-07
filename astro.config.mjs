@@ -29,19 +29,21 @@ const codeTitlesPlugin = () => {
         type: 'html',
         value: `<div id="${id}" class="code-title">
                   ${title}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    fill="none"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-                    />
-                  </svg>
+                  <button>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      fill="none"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                      />
+                    </svg>
+                  </button>
                 </div>
                 `
           .trim()
@@ -56,6 +58,11 @@ const codeTitlesPlugin = () => {
 export default defineConfig({
   integrations: [react(), mdx(), tailwind()],
   site: `http://astro.build`,
+  legacy: {
+    // TODO: maybe migrate this to MDX, but Astro.glob("*.md") - supported in this app 
+    // return diffrent opbjects than Astro.glob("*.mdx") - not legacy Astro feature
+    astroFlavoredMarkdown: true,
+  },
   markdown: {
     syntaxHighlight: false,
     rehypePlugins: [

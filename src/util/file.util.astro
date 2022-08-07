@@ -7,8 +7,8 @@ export const getMarkdownFiles = async (): Promise<PostMarkdownWithSlug[]> => {
     const globMarkdownFiles: PostMarkdown[] = await Astro.glob("../data/*.md")
     return globMarkdownFiles.map(value => {
         const slug: string = value.file
-            .replace(/(\.md|\.mdx)$/, '')
-            .replace(DATA_PATH, '')
+            ?.replace(/(\.md|\.mdx)$/, '')
+            ?.replace(DATA_PATH, '') || ''
 
         return {
             ...value,

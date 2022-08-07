@@ -7,6 +7,8 @@ import PostNavigation from "@components/post/PostNavigation.astro";
 import type { MarkdownHeading } from "astro";
 import type { PostMarkdown } from "src/util/types";
 import { markdownFiles } from "src/util/file.util.astro";
+import readingTime from "reading-time";
+
 import "src/styles/prism.css"
 import "src/styles/base.css"
 
@@ -28,6 +30,8 @@ const next: string | null = Astro.props.next
 const PostContent = post.Content
 const headings: MarkdownHeading[] = await post.getHeadings()
 const tags = post.frontmatter.tags
+
+const readingTimeInMin = readingTime(post.rawContent()).minutes
 ---
 
 <html class="scroll-pt-24">
@@ -38,7 +42,7 @@ const tags = post.frontmatter.tags
 
 <body class="text-ether-text1 bg-ether-surface1">
     <Header />
-    <PostHeader frontmatter={post.frontmatter} />
+    <PostHeader frontmatter={post.frontmatter} readingTime={readingTimeInMin} />
     <main class="pt-8 max-w-7xl mx-auto 
                 grid gap-8 
                 grid-cols-1
@@ -46,30 +50,26 @@ const tags = post.frontmatter.tags
                 md:[grid-template-columns:auto_auto] md:[grid-template-rows:auto_1fr]
                 xl:[grid-template-columns:1fr_auto_1fr] xl:order-none
                 ">
-        <aside class="
-                    md:order-3
-                    xl:order-none
-                ">
-            <div class="sticky top-24 px-4
+        <aside class="md:order-3 xl:order-none">
+            <div class="sticky top-24 px-2
                     md:max-w-xs md:ml-auto 
                     xl:max-w-none xl:ml-0">
                 <PostNavigation headings={headings} />
             </div>
         </aside>
-        <article class="mx-auto overflow-hidden
-                    prose md:prose-lg max-w-full lg:max-w-prose text-skin-base prose-headings:text-skin-base 
-                    prose-a:text-ether-secondary1
+        <article class="
+                    px-2
+                    mx-auto overflow-hidden
+                    prose md:prose-lg max-w-full lg:max-w-prose 
+                    prose-a:text-ether-secondary1 prose-strong:text-ether-text2
                     order-last 
                     sm:order-last sm:col-span-2
                     md:row-span-2 md:col-span-1 md:order-2
                     xl:order-none xl:row-span-1">
             <PostContent />
         </article>
-        <aside class="
-                    md:order-1
-                    xl:order-none">
-            <div class="sticky top-24 px-4
-                    md:max-w-xs md:ml-auto 
+        <aside class="md:order-1 xl:order-none">
+            <div class="sticky top-24 px-2
                     xl:max-w-none xl:ml-0">
                 <PostInfo tags={tags} prev={prev} next={next} />
             </div>
@@ -88,21 +88,28 @@ const tags = post.frontmatter.tags
 
     const codeTitlesElements = document.querySelectorAll("*[id^=code-title]")
     codeTitlesElements.forEach(element => {
+        let active = false;
         element.addEventListener('click', () => {
-            navigator.clipboard.writeText(element.nextElementSibling.textContent)
+            navigator.clipboard?.writeText(element.nextElementSibling.textContent)
                 .then(() => {
-                    const svgElement = element.children[0]
+                    if (active) return;
+                    active = true;
+
+                    const svgElement = element.children[0].children[0]
                     const svgPathElement = svgElement.children[0]
-
-                    svgPathElement.setAttribute("d", copiedPath)
-                    svgElement.classList.toggle('text-green-500')
-                    svgElement.classList.toggle('force-opacity')
-
-                    const timeoutId = setTimeout(() => {
-                        svgPathElement.setAttribute("d", idlePath)
+                    const toggleClasses = (svgPath: string) => {
+                        svgPathElement.setAttribute("d", svgPath)
                         svgElement.classList.toggle('text-green-500')
                         svgElement.classList.toggle('force-opacity')
+                        svgElement.classList.toggle('stroke-2')
+                    }
+
+                    toggleClasses(copiedPath)
+
+                    const timeoutId = setTimeout(() => {
+                        toggleClasses(idlePath)
                         clearTimeout(timeoutId)
+                        active = false;
                     }, 2000)
                 })
         })

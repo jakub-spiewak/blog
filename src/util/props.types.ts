@@ -12,5 +12,6 @@ export interface PostInfoProps {
 }
 
 export interface PostHeaderProps {
-    frontmatter: PostMarkdownFrontmatter
+    frontmatter: PostMarkdownFrontmatter,
+    readingTime: number 
 }

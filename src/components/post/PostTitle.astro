@@ -1,10 +1,11 @@
 ---
 import type { PostHeaderProps } from "src/util/props.types";
 
-const { frontmatter: {date, title} } = Astro.props as PostHeaderProps
+const { frontmatter: { date, title } } = Astro.props as PostHeaderProps
 ---
-<div class="max-w-7xl mx-auto my-3 px-4 border-b-[1px] pt-4 pb-8 border-opacity-30">
-    <h3 class=" mx-auto w-fit ">
+
+<div class="max-w-7xl my-3 mx-auto px-2 border-b-[1px] pt-4 pb-8 border-opacity-30">
+    <h3 class="mx-auto w-fit ">
         <time class="text-ether-text3">
             {new Date(date).toLocaleString('en', {day: 'numeric', month: 'long', year:
             'numeric',

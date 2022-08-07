@@ -6,7 +6,7 @@ const { tags, next, prev } = Astro.props as PostInfoProps
 
 <div class="divide-y">
     <div class="mb-8">
-        <h2 class="text-2xl font-semibold py-2">Tags:</h2>
+        <h2 class="text-2xl font-semibold pb-2">Tags:</h2>
         <ul class="gap-2 mt-2 text-xs uppercase flex flex-wrap justify-between">
             {
             [...tags, ...tags, ...tags].sort(() => Math.random() - .5).map((tag) => (

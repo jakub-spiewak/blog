@@ -6,12 +6,12 @@
 
 @font-face {
   font-family: "Nocturn";
-  src: url("../public/font/NocturneSerif-Regular.woff");
+  src: url("/font/NocturneSerif-Regular.woff");
 }
 
 @font-face {
   font-family: "Magiel";
-  src: url("../public/font/Magiel-Black.woff");
+  src: url("/font/Magiel-Black.woff");
 }
 
 
@@ -94,9 +94,13 @@
     --ether-text3: var(--ether-color-blue-gray-400);
     --ether-text-inverted: var(--ether-color-cool-gray-900);
     --ether-surface1: #121821;
-    --ether-surface2: #3f3358;
+    --ether-surface2: #2c3b52;
     --ether-surface3: #655f7a;
   }
+}
+
+strong {
+  @apply text-ether-text2;
 }
 
 .force-opacity {
