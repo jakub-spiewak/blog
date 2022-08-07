@@ -1,0 +1,10 @@
+---
+import { PostTagProps } from "src/util/props.types";
+
+const { text } = Astro.props as PostTagProps
+---
+
+    <a href={`/tag/${text.replace("/", "" )}`}
+        class="shadow-2xl dark:text-ether-surface1 py-1 px-2 rounded-full bg-ether-secondary1 hover:bg-ether-secondary2 text-ether-inverted">
+        {text}
+    </a>

@@ -15,3 +15,7 @@ export interface PostHeaderProps {
     frontmatter: PostMarkdownFrontmatter,
     readingTime: number 
 }
+
+export interface PostTagProps {
+    text: string
+}

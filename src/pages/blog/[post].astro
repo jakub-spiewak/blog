@@ -11,6 +11,10 @@ import readingTime from "reading-time";
 
 import "src/styles/prism.css"
 import "src/styles/base.css"
+import GithubIcon from "@components/icons/GithubIcon.astro";
+import LinkedInIcon from "@components/icons/LinkedInIcon.astro";
+import TwitterIcon from "@components/icons/TwitterIcon.astro";
+import MailIcon from "@components/icons/MailIcon.astro";
 
 export async function getStaticPaths() {
     return markdownFiles.map((value, index, self) => ({
@@ -75,8 +79,14 @@ const readingTimeInMin = readingTime(post.rawContent()).minutes
             </div>
         </aside>
     </main>
-    <footer class="bg-ether-surface2 border-t border-t-gray-500">
-        <div class="flex items-center justify-center p-8 text-ether-text3">
+    <footer class="bg-ether-surface2 border-t border-t-gray-500 mt-8">
+        <div class="flex flex-col gap-4 items-center justify-center p-8 text-ether-text3">
+            <div class="flex justify-center gap-4 w-full">
+                <MailIcon />
+                <GithubIcon />
+                <LinkedInIcon />
+                <TwitterIcon />
+            </div>
             Copyright © {new Date(post.frontmatter.date).getFullYear()} jakubspiewak.com, All rights reserved.
         </div>
     </footer>

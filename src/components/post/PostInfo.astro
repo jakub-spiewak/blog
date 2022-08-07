@@ -1,5 +1,6 @@
 ---
 import { PostInfoProps } from "src/util/props.types";
+import PostTag from "./PostTag.astro";
 
 const { tags, next, prev } = Astro.props as PostInfoProps
 ---
@@ -10,10 +11,8 @@ const { tags, next, prev } = Astro.props as PostInfoProps
         <ul class="gap-2 mt-2 text-xs uppercase flex flex-wrap justify-between">
             {
             [...tags, ...tags, ...tags].sort(() => Math.random() - .5).map((tag) => (
-            <li class="my-1 shadow-2xl">
-                <a href={`/tag/${tag.replace("/", "")}`} class="py-1 px-2 rounded-full bg-ether-secondary1 text-ether-inverted dark:text-ether-surface1">
-                    {tag}
-                </a>
+            <li class="my-1">
+                <PostTag text={tag} />
             </li>
             ))}
         </ul>
