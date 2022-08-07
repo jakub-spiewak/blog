@@ -1,6 +1,11 @@
 import type { MarkdownHeading } from "@astrojs/markdown-remark";
 import type { PostMarkdownFrontmatter } from "./types";
 
+export interface BaseHTMLPageProps {
+    title: string,
+    description: string,
+}
+
 export interface PostNavigationProps {
     headings: MarkdownHeading[]
 }
@@ -17,5 +22,16 @@ export interface PostHeaderProps {
 }
 
 export interface PostTagProps {
-    text: string
+    text: string,
+    amount: number
+}
+
+export interface TagIndexProps {
+    tag: string
+}
+
+export interface PostCardProps {
+    frontmatter: PostMarkdownFrontmatter,
+    readTime: number,
+    slug: string
 }

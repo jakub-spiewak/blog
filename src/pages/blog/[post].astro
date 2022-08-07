@@ -1,20 +1,16 @@
 ---
-import BaseHead from "@components/BaseHead.astro";
-import Header from "@components/post/Header.astro";
-import PostHeader from "@components/post/PostTitle.astro";
+import BaseHTMLPage from "@components/common/BaseHTMLPage.astro";
 import PostInfo from "@components/post/PostInfo.astro";
 import PostNavigation from "@components/post/PostNavigation.astro";
+import PostScripts from "@components/post/PostScripts.astro";
+import PostTitle from "@components/post/PostTitle.astro";
+import readingTime from "reading-time";
 import type { MarkdownHeading } from "astro";
 import type { PostMarkdown } from "src/util/types";
 import { markdownFiles } from "src/util/file.util.astro";
-import readingTime from "reading-time";
 
 import "src/styles/prism.css"
 import "src/styles/base.css"
-import GithubIcon from "@components/icons/GithubIcon.astro";
-import LinkedInIcon from "@components/icons/LinkedInIcon.astro";
-import TwitterIcon from "@components/icons/TwitterIcon.astro";
-import MailIcon from "@components/icons/MailIcon.astro";
 
 export async function getStaticPaths() {
     return markdownFiles.map((value, index, self) => ({
@@ -38,20 +34,13 @@ const tags = post.frontmatter.tags
 const readingTimeInMin = readingTime(post.rawContent()).minutes
 ---
 
-<html class="scroll-pt-24">
-
-<head>
-    <BaseHead title={post.frontmatter.title} description={post.frontmatter.description} />
-</head>
-
-<body class="text-ether-text1 bg-ether-surface1">
-    <Header />
-    <PostHeader frontmatter={post.frontmatter} readingTime={readingTimeInMin} />
+<BaseHTMLPage title={post.frontmatter.title} description={post.frontmatter.summary}>
+    <PostTitle frontmatter={post.frontmatter} readingTime={readingTimeInMin} />
     <main class="pt-8 max-w-7xl mx-auto 
                 grid gap-8 
                 grid-cols-1
                 sm:grid-cols-2
-                md:[grid-template-columns:auto_auto] md:[grid-template-rows:auto_1fr]
+                md:[grid-template-columns:1fr_auto] md:[grid-template-rows:auto_1fr]
                 xl:[grid-template-columns:1fr_auto_1fr] xl:order-none
                 ">
         <aside class="md:order-3 xl:order-none">
@@ -79,51 +68,5 @@ const readingTimeInMin = readingTime(post.rawContent()).minutes
             </div>
         </aside>
     </main>
-    <footer class="bg-ether-surface2 border-t border-t-gray-500 mt-8">
-        <div class="flex flex-col gap-4 items-center justify-center p-8 text-ether-text3">
-            <div class="flex justify-center gap-4 w-full">
-                <MailIcon />
-                <GithubIcon />
-                <LinkedInIcon />
-                <TwitterIcon />
-            </div>
-            Copyright © {new Date(post.frontmatter.date).getFullYear()} jakubspiewak.com, All rights reserved.
-        </div>
-    </footer>
-</body>
-<script>
-
-    const copiedPath = "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
-    const idlePath = "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-
-    const codeTitlesElements = document.querySelectorAll("*[id^=code-title]")
-    codeTitlesElements.forEach(element => {
-        let active = false;
-        element.addEventListener('click', () => {
-            navigator.clipboard?.writeText(element.nextElementSibling.textContent)
-                .then(() => {
-                    if (active) return;
-                    active = true;
-
-                    const svgElement = element.children[0].children[0]
-                    const svgPathElement = svgElement.children[0]
-                    const toggleClasses = (svgPath: string) => {
-                        svgPathElement.setAttribute("d", svgPath)
-                        svgElement.classList.toggle('text-green-500')
-                        svgElement.classList.toggle('force-opacity')
-                        svgElement.classList.toggle('stroke-2')
-                    }
-
-                    toggleClasses(copiedPath)
-
-                    const timeoutId = setTimeout(() => {
-                        toggleClasses(idlePath)
-                        clearTimeout(timeoutId)
-                        active = false;
-                    }, 2000)
-                })
-        })
-    })
-</script>
-
-</html>
+    <PostScripts />
+</BaseHTMLPage>

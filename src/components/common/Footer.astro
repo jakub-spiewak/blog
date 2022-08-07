@@ -1,0 +1,18 @@
+---
+import GithubIcon from "@components/icons/GithubIcon.astro";
+import LinkedInIcon from "@components/icons/LinkedInIcon.astro";
+import MailIcon from "@components/icons/MailIcon.astro";
+import TwitterIcon from "@components/icons/TwitterIcon.astro";
+---
+
+<footer class="h-32 bg-ether-surface2 text-ether-text3 w-screen border-t border-t-gray-500 flex flex-col gap-4 justify-center items-center">
+        <div class="flex justify-center gap-4 w-full">
+            <MailIcon />
+            <GithubIcon />
+            <LinkedInIcon />
+            <TwitterIcon />
+        </div>
+        <div>
+            Copyright © {new Date().getFullYear()} jakubspiewak.com, All rights reserved.
+        </div>
+</footer>

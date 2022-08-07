@@ -1,0 +1,19 @@
+---
+import ThemeButton from "@components/common/ThemeButton.astro";
+---
+
+<header class="sticky top-0 z-10 shadow-xl border-b border-gray-600/50 bg-ether-surface1 dark:shadow-ether-surface1">
+    <div class="max-w-7xl mx-auto flex py-4 justify-between">
+        <a href="/" class="text-2xl font-magiel hover:text-ether-secondary2">
+            Jakub Śpiewak Blog
+        </a>
+        <div class="flex items-center font-light text-xl">
+            <ul class="grid grid-cols-3 py-1 gap-2">
+                <li><a class="hover:text-ether-secondary2 hover:underline pr-4" href="/blog">Blog</a></li>
+                <li><a class="hover:text-ether-secondary2 hover:underline pr-4" href="/about">About</a></li>
+                <li><a class="hover:text-ether-secondary2 hover:underline pr-4" href="/tag">Tags</a> </li>
+            </ul>
+            <ThemeButton />
+        </div>
+    </div>
+</header>

@@ -1,18 +1,34 @@
 ---
+import BaseHTMLPage from "@components/common/BaseHTMLPage.astro";
+import PostCard from "@components/post/PostCard.astro";
 import { markdownFiles } from "src/util/file.util.astro";
+import { TagIndexProps } from "src/util/props.types";
+import readtime from "reading-time"
 
 export async function getStaticPaths() {
     return markdownFiles
         .map(value => value.frontmatter.tags)
         .flat()
-        .filter((value, index, self) => self.indexOf(value) === index)
-        .map(value => value.replace("/", ""))
+        .filter((value, index, self) => self.map(a => a.replace("/", "")).indexOf(value.replace("/", "")) === index)
         .map(value => ({
-            params: { tag: value },
+            params: { tag: value.replace("/", "") },
+            props: { tag: value }
         }))
 }
 
-const { tag } = Astro.params
+const { tag } = Astro.props as TagIndexProps
+const posts = markdownFiles.filter((value) => value.frontmatter.tags.map(value => value.replace("/", "")).includes(tag.replace("/", "")))
 ---
 
-<h1 class="text-4xl font-extrabold">{tag}</h1>
+<BaseHTMLPage title={`${tag.toUpperCase()} - Jakub Śpiewak Blog`}>
+    <main class="max-w-7xl mx-auto my-auto">
+        <h1 class="text-4xl uppercase font-extrabold">{tag}</h1>
+        <ul class="flex flex-col gap-8 mt-4">
+            {posts.map(({frontmatter, rawContent, slug}) => (
+            <li>
+                <PostCard frontmatter={frontmatter} slug={slug} readTime={readtime(rawContent()).minutes} />
+            </li>
+            ))}
+        </ul>
+    </main>
+</BaseHTMLPage>

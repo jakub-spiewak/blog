@@ -2,7 +2,6 @@ import { MarkdownInstance } from "astro"
 
 export interface PostMarkdownFrontmatter {
     title: string,
-    description: string,
     tags: string[],
     date: string,
     summary: string

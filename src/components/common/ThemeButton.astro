@@ -1,11 +1,11 @@
 ---
-import ThemeIcon from "./icons/ThemeIcon.astro";
-
+import ThemeIcon from "@components/icons/ThemeIcon.astro";
 ---
 
 <button id="theme-button" class="w-8 transition-all duration-500 hover:-rotate-45 hover:dark:rotate-45 dark:rotate-180 active:scale-150">
         <ThemeIcon />
 </button>
+
 <script>
     const isDarkSet = localStorage.theme === 'dark';
     const isThemeStored = 'theme' in localStorage;
