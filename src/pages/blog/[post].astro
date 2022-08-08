@@ -35,7 +35,8 @@ const readingTimeInMin = readingTime(post.rawContent()).minutes
 
 <BaseHTMLPage title={post.frontmatter.title} description={post.frontmatter.summary}>
     <PostTitle frontmatter={post.frontmatter} readingTime={readingTimeInMin} />
-    <main class="pt-8 max-w-7xl mx-auto
+    <main class="max-w-7xl 
+                mx-auto pt-8 
                 grid gap-8 
                 grid-cols-1
                 sm:grid-cols-2
@@ -50,11 +51,12 @@ const readingTimeInMin = readingTime(post.rawContent()).minutes
             </div>
         </aside>
         <article class="
-                    px-2
-                    mx-auto overflow-hidden
-                    prose md:prose-lg max-w-full lg:max-w-prose 
-                    prose-a:text-ether-secondary1 prose-strong:text-ether-text2
                     order-last 
+                    max-w-full 
+                    mx-auto px-2
+                    overflow-hidden
+                    prose md:prose-lg lg:max-w-prose 
+                    prose-a:text-ether-secondary1 prose-strong:text-ether-text2
                     sm:order-last sm:col-span-2
                     md:row-span-2 md:col-span-1 md:order-2
                     xl:order-none xl:row-span-1">
