@@ -1,5 +1,4 @@
 import mdx from "@astrojs/mdx";
-import react from "@astrojs/react";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrism from "rehype-prism-plus";
 import rehypeSlug from "rehype-slug";
@@ -56,7 +55,7 @@ const codeTitlesPlugin = () => {
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react(), mdx(), tailwind()],
+  integrations: [mdx(), tailwind()],
   site: `http://astro.build`,
   legacy: {
     // TODO: maybe migrate this to MDX, but Astro.glob("*.md") - supported in this app 

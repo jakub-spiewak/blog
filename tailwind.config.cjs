@@ -55,10 +55,6 @@ module.exports = {
 	},
 	darkMode: 'class',
 	plugins: [
-		require('@tailwindcss/typography'),
-		require('@catppuccin/tailwindcss')({
-			prefix: 'ctp',
-			defaultFlavour: 'latte'
-		}),
+		require('@tailwindcss/typography')
 	],
 }
