@@ -19,7 +19,6 @@
     const isDark = localStorage.getItem("theme") === "dark"
     if (isDark) commentsElement.setAttribute("theme", "dark")
     window.addEventListener("storage", ({ key, newValue }) => {
-        console.log(key, newValue)
         if (key === "theme") commentsElement.setAttribute("theme", newValue)
     })
 </script>
