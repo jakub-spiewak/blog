@@ -1,0 +1,30 @@
+---
+import ArrowUpIcon from "@components/icons/ArrowUpIcon.astro";
+import CommentsIcon from "@components/icons/CommentsIcon.astro";
+
+---
+
+<div id="go-up-and-comments-container" class="hidden fixed bottom-8 right-8 flex-col gap-4 text-ether-inverted transition-all duration-500">
+    <button id="go-up-button" class="p-2 rounded-full bg-ether-secondary1 hover:bg-ether-secondary2">
+        <ArrowUpIcon />
+    </button>
+    <button id="go-comments-button" class="p-2 rounded-full bg-ether-secondary1 hover:bg-ether-secondary2">
+        <CommentsIcon />
+    </button>
+</div>
+
+<script>
+    const goUpAndCommentsContainer = document.getElementById("go-up-and-comments-container")
+    document.addEventListener("scroll", () => {
+        const show = document.scrollingElement.scrollTop > 64
+        goUpAndCommentsContainer.classList[show ? "remove" : "add"]("hidden")
+        goUpAndCommentsContainer.classList[!show ? "remove" : "add"]("flex")
+
+    })
+    document.getElementById("go-up-button").addEventListener("click", () => {
+        document.scrollingElement.scrollTo({ top: 0, behavior: "smooth" })
+    })
+    document.getElementById("go-comments-button").addEventListener("click", () => {
+        document.getElementById("comments").scrollIntoView({ behavior: "smooth" })
+    })
+</script>

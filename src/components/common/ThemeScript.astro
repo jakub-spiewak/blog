@@ -3,14 +3,20 @@
     const isThemeStored = 'theme' in localStorage;
     const isDarkPrefered = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
+    const commentsElement = document.getElementById("comments")
     if (isDarkSet || (!isThemeStored && isDarkPrefered)) {
         document.documentElement.classList.add('dark')
+        commentsElement?.setAttribute("theme", 'dark')
     } else {
         document.documentElement.classList.remove('dark')
+        commentsElement?.setAttribute("theme", 'light')
     }
+
 
     document.getElementById("theme-button").addEventListener("click", () => {
         document.documentElement.classList.toggle('dark')
         localStorage.theme = localStorage.theme === 'dark' ? 'light' : 'dark'
+        commentsElement?.setAttribute("theme", localStorage.theme)
+
     })
 </script>
