@@ -5,6 +5,7 @@ import Header from "@components/common/Header.astro";
 import { BaseHTMLPageProps } from "src/util/props.types";
 
 import "src/styles/base.css"
+import ThemeScript from "./ThemeScript.astro";
 
 const {description, title} = Astro.props as BaseHTMLPageProps
 ---
@@ -17,6 +18,7 @@ const {description, title} = Astro.props as BaseHTMLPageProps
 </head>
 
 <body class="max-w-screen min-h-screen flex flex-col bg-ether-surface1 text-ether-text1">
+    <ThemeScript/>
     <Header />
     <slot/>
     <Footer />

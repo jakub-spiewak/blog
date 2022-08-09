@@ -6,22 +6,3 @@ import ThemeIcon from "@components/icons/ThemeIcon.astro";
     class="w-8 transition-all duration-500 hover:-rotate-45 hover:dark:rotate-45 dark:rotate-180 active:scale-150">
     <ThemeIcon />
 </button>
-
-<script>
-    const isDarkSet = localStorage.theme === 'dark';
-    const isThemeStored = 'theme' in localStorage;
-    const isDarkPrefered = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    if (isDarkSet || (!isThemeStored && isDarkPrefered)) {
-        document.documentElement.classList.add('dark')
-    } else {
-        document.documentElement.classList.remove('dark')
-    }
-    const button = document.getElementById("theme-button")
-    const link = document.getElementById("theme-link")
-    button.addEventListener("click", () => {
-        document.documentElement.classList.toggle('dark')
-        localStorage.theme = localStorage.theme === 'dark' ? 'light' : 'dark'
-        link.setAttribute('href', `/styles/prism-${localStorage.theme}.css`);
-    })
-</script>

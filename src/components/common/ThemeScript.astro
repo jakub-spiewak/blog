@@ -1,0 +1,16 @@
+<script>
+    const isDarkSet = localStorage.theme === 'dark';
+    const isThemeStored = 'theme' in localStorage;
+    const isDarkPrefered = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (isDarkSet || (!isThemeStored && isDarkPrefered)) {
+        document.documentElement.classList.add('dark')
+    } else {
+        document.documentElement.classList.remove('dark')
+    }
+
+    document.getElementById("theme-button").addEventListener("click", () => {
+        document.documentElement.classList.toggle('dark')
+        localStorage.theme = localStorage.theme === 'dark' ? 'light' : 'dark'
+    })
+</script>
