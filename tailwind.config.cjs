@@ -35,22 +35,6 @@ module.exports = {
 					}
 				}
 			}),
-			textColor: {
-				ether: {
-				}
-			},
-			backgroundColor: {
-				ether: {
-				}
-			},
-			borderColor: {
-				ether: {
-				}
-			},
-			stroke: {
-				ether: {
-				}
-			}
 		},
 	},
 	darkMode: 'class',
