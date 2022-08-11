@@ -12,6 +12,7 @@ import type { PostMarkdown } from "src/util/types";
 import { markdownFiles } from "src/util/file.util.astro";
 
 import "src/styles/prism.css"
+import PostCommentsScript from "@components/post/PostCommentsScript.astro";
 
 export async function getStaticPaths() {
     return markdownFiles.map((value, index, self) => ({
@@ -36,9 +37,12 @@ const readingTimeInMin = readingTime(post.rawContent()).minutes
 ---
 
 <BaseHTMLPage title={post.frontmatter.title} description={post.frontmatter.summary}>
+    <PostCommentsScript client:visible slot="head" />
+    <PostScripts client:idle slot="head" />
     <PostTitle frontmatter={post.frontmatter} readingTime={readingTimeInMin} />
-    <main class="max-w-7xl 
-                mx-auto pt-8 
+    <main class="
+                container-main
+                pt-8 
                 grid gap-8 
                 grid-cols-1
                 sm:grid-cols-2
@@ -52,7 +56,7 @@ const readingTimeInMin = readingTime(post.rawContent()).minutes
                 <PostNavigation headings={headings} />
             </div>
         </aside>
-        <article class="
+        <article id="post-article-content" class="
                     order-last 
                     max-w-full 
                     mx-auto px-2
@@ -62,7 +66,7 @@ const readingTimeInMin = readingTime(post.rawContent()).minutes
                     sm:order-last sm:col-span-2
                     md:row-span-2 md:col-span-1 md:order-2
                     xl:order-none xl:row-span-1">
-            <PostContent />
+            <PostContent name={post.frontmatter.title} />
             <PostComments client:visible />
         </article>
         <aside class="md:order-1 xl:order-none">
@@ -72,6 +76,5 @@ const readingTimeInMin = readingTime(post.rawContent()).minutes
             </div>
         </aside>
     </main>
-    <GoUpAndCommentsButtons/>
-    <PostScripts />
+    <GoUpAndCommentsButtons client:visible />
 </BaseHTMLPage>

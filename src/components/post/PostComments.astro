@@ -1,24 +1,3 @@
-<script type="module" src="https://unpkg.com/giscus?module"></script>
-<div class="border-t border-t-ether-surface2 py-4"></div>
-<giscus-widget 
-    id="comments" 
-    repo="jakub-spiewak/blog"
-    repoid={import.meta.env.GISCUS_REPO_ID}
-    category="General"
-    categoryid={import.meta.env.GISCUS_CATEGORY_ID}
-    mapping="specific" 
-    term="Welcome to giscus!"
-    reactionsenabled="1" 
-    emitmetadata="0" 
-    inputposition="top" 
-    lang="en" 
-    loading="lazy">
-</giscus-widget>
-<script>
-    const commentsElement = document.getElementById("comments")
-    const isDark = localStorage.getItem("theme") === "dark"
-    if (isDark) commentsElement.setAttribute("theme", "dark")
-    window.addEventListener("storage", ({ key, newValue }) => {
-        if (key === "theme") commentsElement.setAttribute("theme", newValue)
-    })
-</script>
+<div id="comments-container" class="border-t border-t-ether-surface2 py-4">
+    <div class="giscus"></div>
+</div>

@@ -19,5 +19,8 @@
     "rehype-autolink-headings": "^6.1.1",
     "rehype-prism-plus": "^1.4.2",
     "rehype-slug": "^5.0.1"
+  },
+  "dependencies": {
+    "giscus": "^1.2.0"
   }
 }

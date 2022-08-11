@@ -14,31 +14,3 @@ const { headings } = Astro.props as PostNavigationProps
         }
     </ul>
 </nav>
-<script>
-
-    const postNavigationList = document.getElementById('post-navigation-list')
-    const postNavigationLinks = postNavigationList.getElementsByTagName('li')
-
-    const headingsElements = document.getElementsByTagName('article')[0].querySelectorAll('h2, h3, h4, h5, h6')
-    const headingsElementsHeights = []
-    headingsElements.forEach((heading) => {
-        headingsElementsHeights.push((heading as HTMLElement).offsetTop)
-    })
-
-    const classNames = ['text-ether-secondary1', 'font-bold', 'border-ether-secondary1']
-
-    document.addEventListener('scroll', () => {
-        const scrollValue = window.scrollY
-        let set = false
-        headingsElementsHeights.forEach((value, index) => {
-            // 96px -> header height, 3px -> offset
-            if (!set && value - scrollValue > 96 + 6) {
-                set = true
-                postNavigationLinks[index - 1]?.classList.add(...classNames)
-            }
-            else {
-                postNavigationLinks[index - 1]?.classList.remove(...classNames)
-            }
-        })
-    })
-</script>

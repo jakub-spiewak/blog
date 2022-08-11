@@ -35,3 +35,7 @@ export interface PostCardProps {
     readTime: number,
     slug: string
 }
+
+export interface PostCommentsProps {
+    name: string
+}

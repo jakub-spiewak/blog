@@ -1,3 +1,7 @@
+.force-opacity {
+  @apply opacity-100 !important;
+}
+
 .inline-code,
 code:not([class]) {
   @apply bg-ether-surface2 text-ether-text2 py-1 px-2 rounded-md font-bold !important;
