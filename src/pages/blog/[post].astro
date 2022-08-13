@@ -14,7 +14,7 @@ import { markdownFiles } from "src/util/file.util.astro";
 import "src/styles/prism.css"
 import PostCommentsScript from "@components/post/PostCommentsScript.astro";
 
-export async function getStaticPaths() {
+export const getStaticPaths = async () => {
     return markdownFiles.map((value, index, self) => ({
         params: { post: value.slug },
         props: {

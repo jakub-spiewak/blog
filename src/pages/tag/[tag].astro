@@ -5,7 +5,7 @@ import { markdownFiles } from "src/util/file.util.astro";
 import { TagIndexProps } from "src/util/props.types";
 import readtime from "reading-time"
 
-export async function getStaticPaths() {
+export const getStaticPaths = async () => {
     return markdownFiles
         .map(value => value.frontmatter.tags)
         .flat()

@@ -1,0 +1,41 @@
+---
+import BaseHTMLPage from "@components/common/BaseHTMLPage.astro"
+
+interface HttpError {
+    code: number,
+    message: string
+}
+
+export const getStaticPaths = () => {
+    const errors: HttpError[] = [
+        { code: 401, message: "Unauthorized" },
+        { code: 403, message: "Forbidden" },
+        { code: 404, message: "Not Found" },
+        { code: 429, message: "Too Many Requests" },
+        { code: 500, message: "Internal Server Error" },
+        { code: 501, message: "Not Implemented" },
+        { code: 502, message: "Bad Gateway" },
+        { code: 503, message: "Service Unavailable" },
+        { code: 504, message: "Gateway Timeout" },
+    ]
+
+    return errors.map((error) => ({
+        params: { error: error.code },
+        props: error
+    }))
+}
+
+const { code, message } = Astro.props as HttpError
+---
+
+<BaseHTMLPage title="Page not found - Jakub Śpiewak Blog">
+    <main class="h-full mx-auto my-auto flex flex-col items-center">
+        <div class="flex divide-x gap-8">
+            <div class="text-7xl font-extralight">{code}</div>
+            <div class="pl-8 py-3 flex flex-col justify-center">
+                <div class="text-xl">{message}</div>
+                <a href="/" class="text-sm text-ether-text3 hover:text-ether-secondary2">Go to homepage</a>
+            </div>
+        </div>
+    </main>
+</BaseHTMLPage>
