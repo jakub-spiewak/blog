@@ -1,9 +1,8 @@
 ---
 import BaseHTMLPage from "@components/common/BaseHTMLPage.astro";
-import PostCard from "@components/post/PostCard.astro";
-import { markdownFiles } from "src/util/file.util.astro";
+import PostList from "@components/post/PostList.astro";
 import { TagIndexProps } from "src/util/props.types";
-import readtime from "reading-time"
+import { markdownFiles } from "src/util/file.util.astro";
 
 export const getStaticPaths = async () => {
     return markdownFiles
@@ -21,14 +20,5 @@ const posts = markdownFiles.filter((value) => value.frontmatter.tags.map(value =
 ---
 
 <BaseHTMLPage title={`${tag.toUpperCase()} - Jakub Śpiewak Blog`}>
-    <main class="max-w-7xl mx-auto my-auto">
-        <h1 class="pt-8 text-4xl m-2 font-extralight"><span class="uppercase font-extrabold">{tag}</span> articles</h1>
-        <ul class="flex flex-col gap-8 mt-4 pt-4 divide-y divide-ether-text3">
-            {posts.map(({frontmatter, rawContent, slug}) => (
-            <li class="p-4">
-                <PostCard frontmatter={frontmatter} slug={slug} readTime={readtime(rawContent()).minutes} />
-            </li>
-            ))}
-        </ul>
-    </main>
+    <PostList title={tag} posts={posts} />
 </BaseHTMLPage>

@@ -32,14 +32,12 @@ const next: string | null = Astro.props.next
 const PostContent = post.Content
 const headings: MarkdownHeading[] = await post.getHeadings()
 const tags = post.frontmatter.tags
-
-const readingTimeInMin = readingTime(post.rawContent()).minutes
 ---
 
 <BaseHTMLPage title={post.frontmatter.title} description={post.frontmatter.summary}>
-    <PostCommentsScript client:visible slot="head" />
-    <PostScripts client:idle slot="head" />
-    <PostTitle frontmatter={post.frontmatter} readingTime={readingTimeInMin} />
+    <PostCommentsScript slot="head" />
+    <PostScripts slot="head" />
+    <PostTitle frontmatter={post.frontmatter} />
     <main class="
                 container-main
                 pt-8 
@@ -67,7 +65,7 @@ const readingTimeInMin = readingTime(post.rawContent()).minutes
                     md:row-span-2 md:col-span-1 md:order-2
                     xl:order-none xl:row-span-1">
             <PostContent name={post.frontmatter.title} />
-            <PostComments client:visible />
+            <PostComments />
         </article>
         <aside class="md:order-1 xl:order-none">
             <div class="sticky top-24 px-2
@@ -76,5 +74,5 @@ const readingTimeInMin = readingTime(post.rawContent()).minutes
             </div>
         </aside>
     </main>
-    <GoUpAndCommentsButtons client:visible />
+    <GoUpAndCommentsButtons />
 </BaseHTMLPage>

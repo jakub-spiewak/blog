@@ -14,7 +14,7 @@ const { description, title } = Astro.props as BaseHTMLPageProps
 <html class="scroll-pt-24 scroll-smooth">
 
 <head>
-    <ThemeScript client:load />
+    <ThemeScript />
     <BaseHead title={title} description={description} />
     <slot name="head" />
 </head>

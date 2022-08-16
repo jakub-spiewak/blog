@@ -20,7 +20,7 @@ export const getStaticPaths = () => {
     ]
 
     return errors.map((error) => ({
-        params: { error: error.code },
+        params: { error: error.code.toFixed() },
         props: error
     }))
 }

@@ -3,15 +3,15 @@ import ThemeButton from "@components/common/ThemeButton.astro";
 import LogoIcon from "@components/icons/LogoIcon.astro";
 ---
 
-<header class="sticky top-0 z-10 border-b border-ether-surface2 bg-ether-surface1 shadow-xl dark:shadow-ether-surface1">
+<header class="sticky top-0 z-10 px-2 border-b border-ether-surface2 bg-ether-surface1 shadow-xl dark:shadow-ether-surface1">
     <div class="container-main py-4 flex justify-between items-center">
-        <a href="/" class="pl-2 font-magiel text-2xl hover:text-ether-secondary2">
+        <a href="/" class="font-magiel text-2xl hover:text-ether-secondary2">
             <div class="hidden sm:inline">
                 <LogoIcon />
             </div>
             Jakub Śpiewak Blog
         </a>
-        <nav id="mobile-nav" class="hidden px-2 sm:px-0 sm:flex items-center bg-ether-surface1 font-light text-xl">
+        <nav id="nav" class="hidden px-4 pr-5 sm:px-2 sm:flex items-center bg-ether-surface1 font-light text-xl">
             <ul class="w-full py-1 flex sm:grid sm:grid-cols-3 sm:gap-2">
                 <li><a class="pr-4 hover:text-ether-secondary2 hover:underline" href="/blog">Blog</a></li>
                 <li><a class="pr-4 hover:text-ether-secondary2 hover:underline" href="/about">About</a></li>
@@ -19,31 +19,31 @@ import LogoIcon from "@components/icons/LogoIcon.astro";
             </ul>
             <ThemeButton />
         </nav>
-        <button id="mobile-menu-button" class="sm:hidden hover:text-ether-secondary2">
+        <button id="mobile-menu-button" class="h-full text-2xl sm:hidden hover:text-ether-secondary2">
             <LogoIcon />
         </button>
     </div>
 </header>
 
 <script>
-    const mobileNav = document.getElementById("mobile-nav")
+    const navigation = document.getElementById("nav")
     const toggle = (show: boolean) => {
-        mobileNav.classList[show ? "remove" : "add"]('hidden')
-        mobileNav.classList[show ? "add" : "remove"]('flex')
-        mobileNav.classList[show ? "add" : "remove"]('absolute')
-        mobileNav.classList[show ? "add" : "remove"]('right-0')
-        mobileNav.classList[show ? "add" : "remove"]('top-16')
-        mobileNav.classList[show ? "add" : "remove"]('w-full')
-        mobileNav.classList[show ? "add" : "remove"]('shadow-xl')
-        mobileNav.classList[show ? "add" : "remove"]('border-y')
-        mobileNav.classList[show ? "add" : "remove"]('border-ether-surface2')
-        mobileNav.classList[show ? "add" : "remove"]('py-4')
-        mobileNav.classList[show ? "add" : "remove"]('dark:shadow-ether-surface1')
+        navigation.classList[show ? "remove" : "add"]('hidden')
+        navigation.classList[show ? "add" : "remove"]('flex')
+        navigation.classList[show ? "add" : "remove"]('absolute')
+        navigation.classList[show ? "add" : "remove"]('right-0')
+        navigation.classList[show ? "add" : "remove"]('top-16')
+        navigation.classList[show ? "add" : "remove"]('w-full')
+        navigation.classList[show ? "add" : "remove"]('shadow-xl')
+        navigation.classList[show ? "add" : "remove"]('border-y')
+        navigation.classList[show ? "add" : "remove"]('border-ether-surface2')
+        navigation.classList[show ? "add" : "remove"]('py-4')
+        navigation.classList[show ? "add" : "remove"]('dark:shadow-ether-surface1')
     }
     document.getElementById("mobile-menu-button").addEventListener('click', () => {
-        toggle(mobileNav.classList.contains("hidden"))
+        toggle(navigation.classList.contains("hidden"))
     })
     window.addEventListener("resize", () => {
-        if (!mobileNav.classList.contains("hidden")) toggle(window.innerWidth <= 640)
+        if (!navigation.classList.contains("hidden")) toggle(window.innerWidth <= 640)
     })
 </script>

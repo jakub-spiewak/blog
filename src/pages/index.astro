@@ -1,22 +1,11 @@
 ---
 import BaseHTMLPage from "@components/common/BaseHTMLPage.astro";
-import PostCard from "@components/post/PostCard.astro";
-import readtime from "reading-time"
+import PostList from "@components/post/PostList.astro";
 import { markdownFiles } from "src/util/file.util.astro";
 
 const posts = markdownFiles;
 ---
 
-
-<BaseHTMLPage title={`Jakub Śpiewak Blog`}>
-    <main class="max-w-7xl m-auto px-4">
-        <h1 class="text-4xl pt-8 font-extralight"><span class="font-extrabold">Latest</span> articles</h1>
-        <ul class="flex flex-col gap-8 mt-4 pt-4 divide-y divide-ether-text3">
-            {posts.map(({frontmatter, rawContent, slug}) => (
-            <li class="py-4">
-                <PostCard frontmatter={frontmatter} slug={slug} readTime={readtime(rawContent()).minutes} />
-            </li>
-            ))}
-        </ul>
-    </main>
+<BaseHTMLPage title="Jakub Śpiewak Blog">
+    <PostList title="Latest" posts={posts} />
 </BaseHTMLPage>

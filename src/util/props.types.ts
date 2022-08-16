@@ -1,5 +1,5 @@
 import type { MarkdownHeading } from "@astrojs/markdown-remark";
-import type { PostMarkdownFrontmatter } from "./types";
+import type { PostMarkdownFrontmatter, PostMarkdownWithSlug } from "./types";
 
 export interface BaseHTMLPageProps {
     title: string,
@@ -38,4 +38,9 @@ export interface PostCardProps {
 
 export interface PostCommentsProps {
     name: string
+}
+
+export interface PostListProps {
+    posts: PostMarkdownWithSlug[],
+    title: string
 }
