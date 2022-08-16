@@ -8,7 +8,7 @@ const { tags, next, prev } = Astro.props as PostInfoProps
 <div>
     <div class="pb-8 border-b border-b-ether-surface2">
         <h2 class="p-2 font-semibold text-2xl">Tags:</h2>
-        <ul class="mt-2 flex flex-wrap justify-between gap-2 text-xs uppercase">
+        <ul class="mt-2 flex flex-wrap justify-between gap-2 text-xs uppercase after:flex-auto">
             {
             tags.map((tag) => (
             <li class="my-1">

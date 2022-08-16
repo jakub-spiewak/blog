@@ -1,12 +1,15 @@
 ---
 import ThemeButton from "@components/common/ThemeButton.astro";
-import SunIcon from "@components/icons/SunIcon.astro";
+import LogoIcon from "@components/icons/LogoIcon.astro";
 ---
 
 <header class="sticky top-0 z-10 border-b border-ether-surface2 bg-ether-surface1 shadow-xl dark:shadow-ether-surface1">
     <div class="container-main py-4 flex justify-between items-center">
         <a href="/" class="pl-2 font-magiel text-2xl hover:text-ether-secondary2">
-            {"< Jakub Śpiewak Blog />"}
+            <div class="hidden sm:inline">
+                <LogoIcon />
+            </div>
+            Jakub Śpiewak Blog
         </a>
         <nav id="mobile-nav" class="hidden px-2 sm:px-0 sm:flex items-center bg-ether-surface1 font-light text-xl">
             <ul class="w-full py-1 flex sm:grid sm:grid-cols-3 sm:gap-2">
@@ -17,7 +20,7 @@ import SunIcon from "@components/icons/SunIcon.astro";
             <ThemeButton />
         </nav>
         <button id="mobile-menu-button" class="sm:hidden hover:text-ether-secondary2">
-            <SunIcon />
+            <LogoIcon />
         </button>
     </div>
 </header>
