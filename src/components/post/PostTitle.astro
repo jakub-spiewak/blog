@@ -12,7 +12,7 @@ const { frontmatter: { date, title } } = Astro.props as PostHeaderProps
             weekday: 'long'})}
         </time>
     </h3>
-    <h1 class="w-fit mx-auto font-extrabold text-5xl text-center">
+    <h1 itemprop="name headline" class="w-fit mx-auto font-extrabold text-5xl text-center">
         {title}
     </h1>
 </div>

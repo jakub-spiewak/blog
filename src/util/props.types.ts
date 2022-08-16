@@ -44,3 +44,7 @@ export interface PostListProps {
     posts: PostMarkdownWithSlug[],
     title: string
 }
+
+export interface ArticleMarkupSchemaProps {
+    post: PostMarkdownWithSlug
+}
