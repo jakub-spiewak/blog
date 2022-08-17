@@ -2,16 +2,18 @@
 import BaseHTMLPage from "@components/common/BaseHTMLPage.astro";
 import GoUpAndCommentsButtons from "@components/common/GoUpAndCommentsButtons.astro";
 import PostComments from "@components/post/PostComments.astro";
+import PostCopyScript from "@components/post/scripts/PostCopyScript.astro";
 import PostInfo from "@components/post/PostInfo.astro";
 import PostNavigation from "@components/post/PostNavigation.astro";
-import PostScripts from "@components/post/PostScripts.astro";
+import PostNavigationScript from "@components/post/scripts/PostNavigationScript.astro";
+import PostScrollButtonsScript from "@components/post/scripts/PostScrollButtonsScript.astro";
 import PostTitle from "@components/post/PostTitle.astro";
 import type { MarkdownHeading } from "astro";
 import type { PostMarkdown } from "src/util/types";
 import { markdownFiles } from "src/util/file.util.astro";
 
 import "src/styles/prism.css";
-import PostCommentsScript from "@components/post/PostCommentsScript.astro";
+import PostCommentsScript from "@components/post/scripts/PostCommentsScript.astro";
 
 export const getStaticPaths = async () => {
     return markdownFiles.map((value, index, self) => ({
@@ -38,8 +40,9 @@ const tags = post.frontmatter.tags;
     description={post.frontmatter.summary}
 >
     <PostCommentsScript slot="head" />
-    <PostScripts slot="head" />
-    <PostScripts slot="head" />
+    <PostCopyScript slot="head" />
+    <PostNavigationScript slot="head" />
+    <PostScrollButtonsScript slot="head" />
     <PostTitle frontmatter={post.frontmatter} />
     <main
         role="main"
