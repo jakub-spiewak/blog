@@ -4,6 +4,7 @@ export interface PostMarkdownFrontmatter {
     title: string,
     tags: string[],
     date: string,
+    modifyDate?: string,
     summary: string
 }
 
