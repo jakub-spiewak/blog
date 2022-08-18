@@ -6,7 +6,9 @@
 
 @font-face {
   font-family: "Magiel";
-  src: url("/font/Magiel-Black.woff");
+  src: url("/font/Magiel-Black.woff") format("woff");
+  font-style: normal;
+  font-display: fallback;
 }
 
 @layer base {

@@ -2,16 +2,19 @@
 export interface Props {
 	title: string;
 	description: string;
+	type?: string;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const { title, description } = Astro.props;
+const { title, description, type } = Astro.props;
+console.log(canonicalURL);
 ---
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,minimum0scale=1" />
-<!-- <link rel="icon" type="image/x-icon" href="/favicon.ico" /> -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="index, follow" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
@@ -19,15 +22,16 @@ const { title, description } = Astro.props;
 <meta name="description" content={description} />
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
+<meta property="og:type" content={type || "website"} />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3872&q=80" />
+<meta property="og:image" content="/assets/baner.png" />
+<meta property="og:site_name" content="Jakub Śpiewak Blog" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={canonicalURL} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3872&q=80" />
+<meta property="twitter:image" content="/assets/baner.png" />

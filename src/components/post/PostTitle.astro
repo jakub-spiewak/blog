@@ -5,13 +5,13 @@ const { frontmatter: { date, title } } = Astro.props as PostHeaderProps
 ---
 
 <div class="container-main py-8 border-b border-b-ether-surface2">
-    <h3 class="w-fit mx-auto">
+    <div class="w-fit mx-auto">
         <time class="text-ether-text3">
             {new Date(date).toLocaleString('en', {day: 'numeric', month: 'long', year:
             'numeric',
             weekday: 'long'})}
         </time>
-    </h3>
+    </div>
     <h1 itemprop="name headline" class="w-fit mx-auto font-extrabold text-5xl text-center">
         {title}
     </h1>
