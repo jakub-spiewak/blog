@@ -28,28 +28,10 @@ const schema = {
     datePublished: new Date(date).toISOString(),
     dateModified: new Date(modifyDate || date).toISOString(),
 };
+
+const schemaStr = JSON.stringify(schema, null, 2)
 ---
 
 <script type="application/ld+json">
-{
-    "@context": "https://schema.org/",
-    "@type": "Article",
-    headline: title,
-    description: summary,
-    image: "https://alpha.jakubspiewak.com/assets/banner.jpg",
-    author: {
-        "@type": "Person",
-        name: "Jakub Śpiewak",
-    },
-    publisher: {
-        "@type": "Organization",
-        name: "Jakub Śpiewak",
-        logo: {
-            "@type": "ImageObject",
-            url: "https://alpha.jakubspiewak.com/assets/logo.png",
-        },
-    },
-    datePublished: new Date(date).toISOString(),
-    dateModified: new Date(modifyDate || date).toISOString(),
-}
+    <Fragment set:text={schemaStr} />
 </script>
