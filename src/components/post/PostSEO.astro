@@ -1,0 +1,16 @@
+---
+import { PostMarkdownWithSlug } from "src/util/types";
+
+const {
+    post: {
+        frontmatter: { date, tags },
+    },
+} = Astro.props as { post: PostMarkdownWithSlug };
+---
+
+<meta property="keywords" content={tags.join(", ")} slot="head" />
+<meta
+    property="og:publish_date"
+    content={new Date(date).toISOString()}
+    slot="head"
+/>
