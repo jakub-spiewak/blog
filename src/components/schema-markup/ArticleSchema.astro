@@ -29,9 +29,7 @@ const schema = {
     dateModified: new Date(modifyDate || date).toISOString(),
 };
 
-const schemaStr = JSON.stringify(schema, null, 2)
+const schemaStr = JSON.stringify(schema, null, 2);
 ---
 
-<script type="application/ld+json">
-    <Fragment set:text={schemaStr} />
-</script>
+<script type="application/ld+json" set:text={schemaStr}></script>
