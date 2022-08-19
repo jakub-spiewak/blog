@@ -20,7 +20,7 @@ module.exports = {
 					'dark1-2': 'var(--ether-dark1-2)',
 					'dark2': 'var(--ether-dark2)',
 					'dark3': 'var(--ether-dark3)',
-					'gray-200': 'var(--ether-color-pure-neutral-200)',
+					'gray-200': 'var(--ether-color-gray-200)',
 				}
 			},
 			fontFamily: {
