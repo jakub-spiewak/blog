@@ -1,0 +1,12 @@
+---
+import { PostTagProps } from "src/util/props.types";
+
+const { text, amount } = Astro.props as PostTagProps;
+---
+
+<a
+    href={`/tag/${text.replace("/", "")}`}
+    class="px-4 py-1 rounded-full bg-ether-secondary1 hover:bg-ether-secondary2 dark:text-ether-surface1 text-ether-inverted uppercase shadow-2xl"
+>
+    {!!amount ? `${text} (${amount})` : text}
+</a>

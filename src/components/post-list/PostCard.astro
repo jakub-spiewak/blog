@@ -1,6 +1,6 @@
 ---
 import { PostCardProps } from "src/util/props.types";
-import PostTag from "./PostTag.astro";
+import PostTag from "@components/common/PostTag.astro";
 
 const {
     frontmatter: { date, summary, tags, title },
@@ -11,13 +11,8 @@ const {
 const href = `/blog/${slug}`;
 ---
 
-<article
-    itemprop="blogPost"
-    itemscope
-    itemtype="http://schema.org/BlogPosting"
-    class="max-w-7xl xl:grid xl:grid-cols-4"
->
-    <time itemprop="datePublished" class="text-ether-text3">
+<article class="max-w-7xl xl:grid xl:grid-cols-4">
+    <time class="text-ether-text3">
         {
             new Date(date).toLocaleString("en", {
                 day: "numeric",
@@ -29,7 +24,6 @@ const href = `/blog/${slug}`;
     </time>
     <div class="xl:col-span-3">
         <a
-            itemprop="name headline"
             class="mb-4 font-bold text-3xl hover:text-ether-secondary2"
             href={href}
             >{title}
@@ -37,7 +31,7 @@ const href = `/blog/${slug}`;
         <ul class="flex flex-wrap gap-2 my-4">
             {tags.map((value) => <PostTag text={value} />)}
         </ul>
-        <p itemprop="description" class="mb-4">{summary}</p>
+        <p class="mb-4">{summary}</p>
         <div class="mb-4 text-ether-text3">
             Reading time about {readTime.toFixed()} minutes,
             <a

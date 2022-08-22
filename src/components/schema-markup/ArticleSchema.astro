@@ -9,13 +9,15 @@ const {
 
 const schema = {
     "@context": "https://schema.org/",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: title,
     description: summary,
     image: "https://alpha.jakubspiewak.com/assets/banner.jpg",
     author: {
         "@type": "Person",
         name: "Jakub Śpiewak",
+        email: "priv@jakubspiewak.com",
+        url: "jakubspiewak.com/about"
     },
     publisher: {
         "@type": "Organization",

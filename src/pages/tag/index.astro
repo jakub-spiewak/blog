@@ -1,6 +1,6 @@
 ---
 import BaseHTMLPage from "@components/common/BaseHTMLPage.astro";
-import PostTag from "@components/post/PostTag.astro";
+import PostTag from "@components/common/PostTag.astro";
 import { markdownFiles } from "src/util/file.util.astro";
 
 const tagsPerPost: string[][] = markdownFiles.map(value => value.frontmatter.tags)

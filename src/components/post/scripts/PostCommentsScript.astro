@@ -28,7 +28,7 @@
         if (document.getElementById("giscus-script")) loadComments()
     })
 
-    const callback = (_, observer) => {
+    const callback: IntersectionObserverCallback = (_, observer) => {
         if (!initialized) {
             initialized = true;
             return;
@@ -42,5 +42,4 @@
     const observer = new IntersectionObserver(callback, { rootMargin: '400px 0px' });
 
     observer.observe(comentsContainer)
-
 </script>

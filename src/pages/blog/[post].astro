@@ -50,7 +50,8 @@ const tags = post.frontmatter.tags;
     <ArticleSchema post={post} slot="head" />
 
     <PostTitle frontmatter={post.frontmatter} />
-    <main role="main"
+    <main
+        role="main"
         class="container-main pt-8 grid gap-8 grid-cols-1 sm:grid-cols-2 md:[grid-template-columns:1fr_auto] md:[grid-template-rows:auto_1fr] xl:[grid-template-columns:1fr_auto_1fr] xl:order-none"
     >
         <aside class="md:order-3 xl:order-none">

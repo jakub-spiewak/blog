@@ -5,14 +5,16 @@ import MailIcon from "@components/icons/MailIcon.astro";
 import TwitterIcon from "@components/icons/TwitterIcon.astro";
 ---
 
-<footer class="w-screen h-40 flex flex-col justify-center items-center gap-4 border-t border-t-ether-surface3 bg-ether-surface2 text-ether-text3">
-        <div class="w-full flex justify-center gap-4">
-            <MailIcon />
-            <GithubIcon />
-            <LinkedInIcon />
-            <TwitterIcon />
-        </div>
-        <div>
-            Copyright © {new Date().getFullYear()} jakubspiewak.com, All rights reserved.
-        </div>
+<footer
+    class="w-screen h-40 flex flex-col justify-center items-center gap-4 border-t border-t-ether-surface3 bg-ether-surface2 text-ether-text3"
+>
+    <div class="w-full flex justify-center gap-4 transition-none">
+        <MailIcon />
+        <GithubIcon />
+        <LinkedInIcon />
+        <TwitterIcon />
+    </div>
+    <div class="text-center">
+        Copyright © {new Date().getFullYear()} jakubspiewak.com, All rights reserved.
+    </div>
 </footer>

@@ -1,0 +1,13 @@
+---
+const schema = {
+    "@context": "https://schema.org/",
+    "@type": "Person",
+    name: "Jakub Śpiewak",
+    email: "priv@jakubspiewak.com",
+    url: "jakubspiewak.com/about",
+};
+
+const schemaStr = JSON.stringify(schema, null, 2);
+---
+
+<script type="application/ld+json" set:html={schemaStr}></script>
