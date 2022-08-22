@@ -19,13 +19,17 @@ const { title, description, type } = Astro.props;
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={type || "website"} />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content="https://alpha.jakubspiewak.com/assets/banner.jpg" />
+<meta
+	property="og:image"
+	content="https://alpha.jakubspiewak.com/assets/banner.jpg"
+/>
 <meta property="og:site_name" content="Jakub Śpiewak Blog" />
 <meta property="og:author" content="Jakub Śpiewak" />
 
@@ -34,4 +38,7 @@ const { title, description, type } = Astro.props;
 <meta property="twitter:url" content={canonicalURL} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content="https://alpha.jakubspiewak.com/assets/banner.jpg" />
+<meta
+	property="twitter:image"
+	content="https://alpha.jakubspiewak.com/assets/banner.jpg"
+/>

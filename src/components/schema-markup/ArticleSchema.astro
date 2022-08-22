@@ -2,10 +2,11 @@
 import { PostMarkdownWithSlug } from "src/util/types";
 
 const {
+    url,
     post: {
         frontmatter: { title, summary, date, modifyDate },
     },
-} = Astro.props as { post: PostMarkdownWithSlug };
+} = Astro.props as { post: PostMarkdownWithSlug, url: string };
 
 const schema = {
     "@context": "https://schema.org/",
@@ -13,6 +14,10 @@ const schema = {
     headline: title,
     description: summary,
     image: "https://alpha.jakubspiewak.com/assets/banner.jpg",
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': url,
+    },
     author: {
         "@type": "Person",
         name: "Jakub Śpiewak",

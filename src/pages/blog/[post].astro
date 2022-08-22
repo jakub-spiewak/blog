@@ -10,7 +10,7 @@ import PostNavigationScript from "@components/post/scripts/PostNavigationScript.
 import PostScrollButtonsScript from "@components/post/scripts/PostScrollButtonsScript.astro";
 import PostTitle from "@components/post/PostTitle.astro";
 import type { MarkdownHeading } from "astro";
-import type { PostMarkdown } from "src/util/types";
+import type { PostMarkdown, PostMarkdownWithSlug } from "src/util/types";
 import { markdownFiles } from "src/util/file.util.astro";
 
 import "src/styles/prism.css";
@@ -28,7 +28,7 @@ export const getStaticPaths = async () => {
     }));
 };
 
-const post: PostMarkdown = Astro.props.post;
+const post: PostMarkdownWithSlug = Astro.props.post;
 const prev: string | null = Astro.props.prev;
 const next: string | null = Astro.props.next;
 
@@ -47,7 +47,11 @@ const tags = post.frontmatter.tags;
     <PostNavigationScript slot="head" />
     <PostScrollButtonsScript slot="head" />
     <PostSEO post={post} slot="head" />
-    <ArticleSchema post={post} slot="head" />
+    <ArticleSchema
+        post={post}
+        url={`${Astro.site}/blog/${post.slug}`}
+        slot="head"
+    />
 
     <PostTitle frontmatter={post.frontmatter} />
     <main
