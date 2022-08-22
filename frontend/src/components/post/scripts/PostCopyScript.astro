@@ -1,0 +1,35 @@
+<script>
+    const copiedPath = "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+    const idlePath = "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+
+    const codeTitlesElements = document.querySelectorAll("*[id^=code-title]")
+    codeTitlesElements.forEach(element => {
+        let active = false;
+        const buttonElement = element.children[0]
+        buttonElement.addEventListener('click', () => {
+            navigator.clipboard?.writeText(element.nextElementSibling.textContent)
+                .then(() => {
+                    if (active) return;
+                    active = true;
+
+                    const svgElement = buttonElement.children[0]
+                    const svgPathElement = svgElement.children[0]
+                    const toggleClasses = (svgPath: string) => {
+                        svgPathElement.setAttribute("d", svgPath)
+                        svgElement.classList.toggle('text-green-500')
+                        svgElement.classList.toggle('force-opacity')
+                        svgElement.classList.toggle('stroke-2')
+                        svgElement.classList.toggle('scale-125')
+                    }
+
+                    toggleClasses(copiedPath)
+
+                    const timeoutId = setTimeout(() => {
+                        toggleClasses(idlePath)
+                        clearTimeout(timeoutId)
+                        active = false;
+                    }, 1500)
+                })
+        })
+    })
+</script>

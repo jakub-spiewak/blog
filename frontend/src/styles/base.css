@@ -1,0 +1,92 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+@font-face {
+  font-family: "Magiel";
+  src: url("/font/Magiel-Black.woff") format("woff");
+  font-style: normal;
+  font-display: fallback;
+}
+
+@layer base {
+  :root {
+    /* gray */
+    /* --ether-color-gray-50: #f7f7f7; */
+    /* --ether-color-gray-100: #e1e1e1; */
+    --ether-color-gray-200: #cfcfcf;
+    /* --ether-color-gray-300: #b1b1b1; */
+    /* --ether-color-gray-400: #9e9e9e; */
+    /* --ether-color-gray-500: #7e7e7e; */
+    /* --ether-color-gray-600: #626262; */
+    /* --ether-color-gray-700: #515151; */
+    /* --ether-color-gray-800: #3b3b3b; */
+    /* --ether-color-gray-900: #222222; */
+
+    /* blue gray */
+    /* --ether-color-blue-gray-50: #f0f4f8; */
+    /* --ether-color-blue-gray-100: #d9e2ec; */
+    /* --ether-color-blue-gray-200: #bcccdc; */
+    /* --ether-color-blue-gray-300: #9fb3c8; */
+    /* --ether-color-blue-gray-400: #829ab1; */
+    /* --ether-color-blue-gray-500: #627d98; */
+    /* --ether-color-blue-gray-600: #486581; */
+    /* --ether-color-blue-gray-700: #334e68; */
+    /* --ether-color-blue-gray-800: #243b53; */
+    /* --ether-color-blue-gray-900: #102a43; */
+
+    /* cool gray */
+    /* --ether-color-cool-gray-50: #f5f7fa; */
+    /* --ether-color-cool-gray-100: #e4e7eb; */
+    /* --ether-color-cool-gray-200: #cbd2d9; */
+    /* --ether-color-cool-gray-300: #9aa5b1; */
+    /* --ether-color-cool-gray-400: #7b8794; */
+    /* --ether-color-cool-gray-500: #616e7c; */
+    /* --ether-color-cool-gray-600: #52606d; */
+    /* --ether-color-cool-gray-700: #3e4c59; */
+    /* --ether-color-cool-gray-800: #323f4b; */
+    /* --ether-color-cool-gray-900: #1f2933; */
+
+    /* secondaries */
+    --ether-color-dark-gray: #161616;
+    --ether-color-secondary2: #f79b19;
+    --ether-color-secondary1: #028fa3;
+
+    /* theme */
+    /* text */
+    --ether-text1: #222222;
+    --ether-text2: #515151;
+    --ether-text3: #7e7e7e;
+    --ether-text-inverted: #f7f7f7;
+    --ether-surface1: #f7f7f7;
+    --ether-surface2: #e1e1e1;
+    --ether-surface3: #cbd2d9;
+
+    /* ether dark */
+    --ether-dark1: #121821;
+    --ether-dark1-2: #19212c;
+    --ether-dark2: #3f3358;
+    --ether-dark3: #655f7a;
+  }
+
+  .dark {
+    --ether-color-secondary1: #24afc5;
+    --ether-text1: #f0f4f8;
+    --ether-text2: #bcccdc;
+    --ether-text3: #829ab1;
+    --ether-text-inverted: #1f2933;
+    --ether-surface1: #121821;
+    --ether-surface2: #2c3b52;
+    --ether-surface3: #655f7a;
+  }
+}
+
+strong {
+  @apply text-ether-text2;
+}
+
+.container-main {
+  @apply max-w-7xl w-full mx-auto px-2;
+}

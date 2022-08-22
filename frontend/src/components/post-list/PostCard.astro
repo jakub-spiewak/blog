@@ -1,0 +1,44 @@
+---
+import { PostCardProps } from "src/util/props.types";
+import PostTag from "@components/common/PostTag.astro";
+
+const {
+    frontmatter: { date, summary, tags, title },
+    readTime,
+    slug,
+} = Astro.props as PostCardProps;
+
+const href = `/blog/${slug}`;
+---
+
+<article class="max-w-7xl xl:grid xl:grid-cols-4">
+    <time class="text-ether-text3">
+        {
+            new Date(date).toLocaleString("en", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+                weekday: "long",
+            })
+        }
+    </time>
+    <div class="xl:col-span-3">
+        <a
+            class="mb-4 font-bold text-3xl hover:text-ether-secondary2"
+            href={href}
+            >{title}
+        </a>
+        <ul class="flex flex-wrap gap-2 my-4">
+            {tags.map((value) => <PostTag text={value} />)}
+        </ul>
+        <p class="mb-4">{summary}</p>
+        <div class="mb-4 text-ether-text3">
+            Reading time about {readTime.toFixed()} minutes,
+            <a
+                class="font-bold text-ether-secondary1 hover:text-ether-secondary2"
+                href={href}
+                >read more...
+            </a>
+        </div>
+    </div>
+</article>

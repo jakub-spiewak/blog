@@ -1,0 +1,58 @@
+<script>
+    const classNames = [
+        "text-ether-secondary1",
+        "font-bold",
+        "border-ether-secondary1",
+    ];
+    const createScrollEventListener = (): (() => void) => {
+        const postNavigationList = document.getElementById(
+            "post-navigation-list"
+        );
+        const postNavigationLinks =
+            postNavigationList.getElementsByTagName("li");
+
+        const headingsElements = document
+            .getElementsByTagName("article")[0]
+            .querySelectorAll("h2, h3, h4, h5, h6");
+        const headingsElementsHeights = [];
+        headingsElements.forEach((heading) => {
+            headingsElementsHeights.push((heading as HTMLElement).offsetTop);
+        });
+
+        return () => {
+            const scrollValue = window.scrollY;
+            let set = false;
+            headingsElementsHeights.forEach((value, index) => {
+                // 96px -> header height, 8px -> offset
+                if (!set && value - scrollValue > 96 + 8) {
+                    set = true;
+                    postNavigationLinks[index - 1]?.classList.add(
+                        ...classNames
+                    );
+                } else {
+                    postNavigationLinks[index - 1]?.classList.remove(
+                        ...classNames
+                    );
+                }
+            });
+
+            // highlight last element if needed
+            if (!set) {
+                postNavigationLinks[
+                    postNavigationLinks.length - 1
+                ].classList.add(...classNames);
+            } else {
+                postNavigationLinks[
+                    postNavigationLinks.length - 1
+                ]?.classList.remove(...classNames);
+            }
+        };
+    };
+    let currentListener: () => void = createScrollEventListener();
+    window.addEventListener("scroll", currentListener);
+    window.addEventListener("resize", () => {
+        window.removeEventListener("scroll", currentListener);
+        currentListener = createScrollEventListener();
+        window.addEventListener("scroll", currentListener);
+    });
+</script>

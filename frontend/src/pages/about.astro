@@ -1,0 +1,31 @@
+---
+import BaseHTMLPage from "@components/common/BaseHTMLPage.astro";
+---
+
+<BaseHTMLPage title="Jakub Śpiewak Blog">
+    <main class="container-main auto my-auto py-8 h-full flex flex-col md:flex-row gap-8 items-center">
+        <div class="w-48 h-48 flex-none">
+            <img
+                width="192px"
+                height="192px"
+                class="w-48 h-48 rounded-full"
+                src="/assets/me.jpg"
+                alt="Author in the pool on a mattress"
+            />
+        </div>
+        <div class="flex flex-col">
+            <div class="text-4xl font-extrabold">About <span class="font-extralight">me</span></div>
+            <div>
+                I'm the fullstack developer at CodeLab. I like to <strong
+                    >resolve problems, help, teach
+                </strong> and <strong>share</strong>. My interests are focused
+                mainly on microservices and making whole applications from
+                frontend through devops to backend. I do things in <strong
+                    >Java, Kotlin, Spring, TypeScript , React, Docker, Git
+                </strong> and all different technologies related to those. Daily
+                I discover new technologies and frameworks, try to make my code cleaner
+                and get the job done for my personal clients.
+            </div>
+        </div>
+    </main>
+</BaseHTMLPage>

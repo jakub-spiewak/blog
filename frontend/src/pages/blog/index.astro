@@ -1,0 +1,14 @@
+---
+import BaseHTMLPage from "@components/common/BaseHTMLPage.astro";
+import PostList from "@components/post-list/PostList.astro";
+import { markdownFiles } from "src/util/file.util.astro";
+
+const posts = markdownFiles;
+---
+
+<BaseHTMLPage
+    title="Jakub Śpiewak Blog"
+    description="Blog about web development, microservices and other technical stuff."
+>
+    <PostList title="Latest" posts={posts} />
+</BaseHTMLPage>

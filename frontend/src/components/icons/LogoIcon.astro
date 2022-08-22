@@ -1,0 +1,32 @@
+<svg width="2em" height="2em" class="inline stroke-ether-secondary1" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="250" cy="250" r="202" stroke-width="16" />
+    <path
+        class="rotate-right"
+        d="M380.126 122.755C406.997 150.235 424.479 185.516 430.067 223.543C435.654 261.569 429.059 300.388 411.228 334.436C393.397 368.484 365.245 396.013 330.806 413.078C296.367 430.142 257.41 435.866 219.519 429.429"
+        stroke-width="20" stroke-linecap="round" />
+    <path
+        class="rotate-left"
+        d="M335.847 112.616C364.86 130.745 387.388 157.594 400.204 189.314C413.019 221.034 415.464 255.997 407.188 289.191"
+        stroke-width="20" stroke-linecap="round" />
+    <path
+        class="rotate-right"
+        d="M388.198 423.739C346.83 456.644 295.079 473.71 242.252 471.865C189.426 470.02 138.991 449.387 100.019 413.676C61.0473 377.965 36.0966 329.52 29.6548 277.055C23.2129 224.59 35.7026 171.548 64.8774 127.47"
+        stroke-width="20" stroke-linecap="round" />
+    <path
+        class="rotate-left"
+        d="M271.278 29.0221C317.944 33.5155 361.989 52.667 397.102 83.7319C432.214 114.797 456.591 156.18 466.738 201.95"
+        stroke-width="20" stroke-linecap="round" />
+</svg>
+
+<style is:global>
+    a svg>path {
+        transform-origin: center center;
+        transition-duration: 2s;
+    }
+    a:hover svg>.rotate-left {
+        transform: rotateZ(-360deg);
+    }
+    a:hover svg>.rotate-right {
+        transform: rotateZ(360deg);
+    }
+</style>
