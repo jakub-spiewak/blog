@@ -1,0 +1,14 @@
+server:
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  data:
+    mongodb:
+      host: mongodb
+      port: 27017
+      username: root
+      password: root1
+      database: blog-counter
+      authentication-database: admin

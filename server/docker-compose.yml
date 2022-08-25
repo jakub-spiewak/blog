@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+
+  server:
+    container_name: server
+    image: jakubspiewak-blog-server:latest
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+
+  mongo:
+    container_name: mongodb
+    image: mongo
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root1
+      - MONGO_INITDB_DATABASE=blog-counter
