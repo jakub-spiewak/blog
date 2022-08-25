@@ -1,7 +1,11 @@
 package com.jakubspiewak.blog.server.statistics
 
-import org.springframework.data.mongodb.repository.ReactiveMongoRepository
-import org.springframework.stereotype.Repository
+import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
 
-@Repository
-interface StatisticsRepository : ReactiveMongoRepository<StatisticsEntity, String>
+interface StatisticsRepository {
+    fun findAll(): Flux<StatisticsEntity>
+    fun findAllByPathStartingWith(path: String): Flux<StatisticsEntity>
+    fun findFirstByPath(path: String): Mono<StatisticsEntity>
+    fun save(entity: StatisticsEntity): Mono<StatisticsEntity>
+}
