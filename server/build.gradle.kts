@@ -46,10 +46,10 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-//tasks.withType<BootBuildImage> {
-//    builder = "paketobuildpacks/builder:tiny"
-//    environment = mapOf("BP_NATIVE_IMAGE" to "true")
-//}
+tasks.withType<BootBuildImage> {
+    builder = "paketobuildpacks/builder:tiny"
+    environment = mapOf("BP_NATIVE_IMAGE" to "true")
+}
 
 tasks.named("compileKotlin") {
     dependsOn("adjustErrorPages")

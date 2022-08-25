@@ -1,5 +1,8 @@
 package com.jakubspiewak.blog.server.statistics
 
+import org.springframework.data.domain.Example
+import org.springframework.data.domain.ExampleMatcher
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
@@ -10,14 +13,40 @@ class StatisticsService(private val repository: StatisticsRepository) {
 
     fun saveStatistics(entity: StatisticsEntity): Mono<StatisticsEntity> = repository.save(entity)
 
-    fun getStatisticByPath(path: String): Mono<StatisticsEntity> = repository.findFirstByPath(Mono.just(path))
+    fun getStatisticByPath(path: String): Mono<StatisticsEntity> =
+        repository.findOne(
+            Example.of(
+                StatisticsEntity(path = path, hits = 0),
+                ExampleMatcher.matchingAny()
+                    .withMatcher(
+                        "path",
+                        ExampleMatcher.GenericPropertyMatcher()
+                            .exact()
+                            .caseSensitive()
+                    )
+                    .withIgnorePaths("id", "hits")
+            )
+        )
 
-    fun getAllStatistics(): Flux<StatisticsResponse> = repository.findAll()
+    fun getAllStatistics(): Flux<StatisticsResponse> = repository.findAll(
+        Sort.by("hits").descending()
+    )
         .map { statistic -> statistic.toResponse() }
-        .sort { o1, o2 -> o2.hits - o1.hits }
 
-    fun getAllStatisticsPrefixed(prefix: String): Flux<StatisticsResponse> =
-        repository.findAllByPathIsStartingWith(Mono.just(prefix))
+    fun getAllStatisticsStartingWith(prefix: String): Flux<StatisticsResponse> =
+        repository.findAll(
+            Example.of(
+                StatisticsEntity(path = prefix, hits = 0),
+                ExampleMatcher.matchingAny()
+                    .withMatcher(
+                        "path",
+                        ExampleMatcher.GenericPropertyMatcher()
+                            .startsWith()
+                            .caseSensitive()
+                    )
+                    .withIgnorePaths("id", "hits")
+            ),
+            Sort.by("hits").descending()
+        )
             .map { statistic -> statistic.toResponse() }
-            .sort { o1, o2 -> o2.hits - o1.hits }
 }

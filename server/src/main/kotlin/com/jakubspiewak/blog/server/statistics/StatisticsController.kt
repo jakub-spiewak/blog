@@ -14,7 +14,7 @@ class StatisticsController(private val service: StatisticsService) {
         println(prefix)
         if (prefix.isNullOrEmpty()) return service.getAllStatistics()
 
-        return service.getAllStatisticsPrefixed(prefix.joinToString("/"))
+        return service.getAllStatisticsStartingWith(prefix.joinToString("/"))
     }
 
 }
