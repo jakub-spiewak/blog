@@ -21,6 +21,9 @@ module.exports = {
 					'dark2': 'var(--ether-dark2)',
 					'dark3': 'var(--ether-dark3)',
 					'gray-200': 'var(--ether-color-gray-200)',
+				},
+				'ether-landing': {
+					surface: 'var(--ether-landing-surface)',
 				}
 			},
 			fontFamily: {

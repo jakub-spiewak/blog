@@ -69,6 +69,9 @@
     --ether-dark1-2: #19212c;
     --ether-dark2: #3f3358;
     --ether-dark3: #655f7a;
+
+    /* ether landing */
+    --ether-landing-surface: #121821;
   }
 
   .dark {
