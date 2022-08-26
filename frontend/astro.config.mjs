@@ -5,6 +5,7 @@ import rehypeSlug from "rehype-slug";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import { defineConfig } from 'astro/config';
+import glsl from 'vite-plugin-glsl';
 import { s, h } from "hastscript";
 import { visit } from 'unist-util-visit';
 
@@ -63,6 +64,9 @@ export default defineConfig({
     // TODO: maybe migrate this to MDX, but Astro.glob("*.md") - supported in this app 
     // return diffrent opbjects than Astro.glob("*.mdx") - not legacy Astro feature
     astroFlavoredMarkdown: true
+  },
+  vite: {
+    plugins: [glsl()]
   },
   markdown: {
     syntaxHighlight: false,

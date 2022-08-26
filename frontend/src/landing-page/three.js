@@ -1,113 +1,126 @@
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import { Color } from 'three';
-import Stats from 'stats.js'
+import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-const sizes = {
-    width: window.innerWidth,
-    height: window.innerHeight,
-}
+import vertex from './shaders/vertex.glsl';
+import fragment from './shaders/fragment.glsl'
+import starTexture from './star.jpg';
 
-const loader = new GLTFLoader();
-const dracoLoader = new DRACOLoader();
-dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
-loader.setDRACOLoader(dracoLoader);
+const lerp = (a, b, t) => a * (1 - t) + b * t;
 
-const scene = new THREE.Scene()
+class Sketch {
+    constructor(options) {
+        this.scene = new THREE.Scene();
 
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 1000)
-camera.position.set(0, 0, 2)
-scene.add(camera)
+        this.container = options.dom;
+        this.width = this.container.offsetWidth;
+        this.height = this.container.offsetHeight;
+        this.renderer = new THREE.WebGLRenderer();
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        this.renderer.setSize(this.width, this.height);
+        this.renderer.setClearColor(0x000000, 1);
+        this.renderer.physicallyCorrectLights = true;
+        this.renderer.outputEncoding = THREE.sRGBEncoding;
 
+        this.container.appendChild(this.renderer.domElement);
 
-let mixer
+        this.camera = new THREE.PerspectiveCamera(
+            70,
+            window.innerWidth / window.innerHeight,
+            0.001,
+            1000
+        );
 
+        this.camera.position.set(0, 2, 2);
+        this.controls = new OrbitControls(
+            this.camera,
+            this.renderer.domElement
+        );
+        this.time = 0;
 
-loader.load(
-    '/landing-page-three/models/astronaout.gltf',
-    function (gltf) {
-        console.log(gltf);
-        scene.add(gltf.scene);
-        gltf.scene.position.set(0, -1, 0)
-        mixer = new THREE.AnimationMixer(gltf.scene)
-
-        const animationAction = mixer.clipAction(gltf.animations[2])
-
-        animationAction.fadeIn(1)
-        animationAction.play()
-        console.log(gltf.scene.children[0].children);
-        const body1 = gltf.scene.children[0].children[0].children[0]
-        console.log(body1)
-        const body2 = gltf.scene.children[0].children[1]
-        body1.traverse(o => {
-            console.log(o)
-            console.log(o.isMesh)
-        })
-        gltf.scene.traverse(o => {
-            console.log(o)
-            if (o.name === 'backpack') {
-                o.material = new THREE.MeshStandardMaterial({
-                    color: 0xff0000
-                })
-            }
-            if (o.name === 'suit') {
-                o.material = new THREE.MeshStandardMaterial({
-                    color: 0x0000ff
-                })
-            }
-            if (o.name === 'helmet_glass') {
-                o.material = new THREE.MeshStandardMaterial({
-                    color: 0x00ff00
-                })
-            }
-        })
-    },
-    function (xhr) {
-        console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-    },
-    function (error) {
-        console.log(error);
+        this.addObjects();
+        this.resize();
+        this.render();
+        this.setupResize();
+        // this.settings()
     }
-);
 
-const directionalLight = new THREE.DirectionalLight(new Color(0xffffff), 0.8)
-directionalLight.position.set(-2, 5, 2)
-scene.add(directionalLight)
+    settings() {
+        let that = this;
+        this.settings = {
+            progres: 0,
+        };
+    }
 
-const pointLight = new THREE.PointLight(new THREE.Color(0xffffff), 0.9)
-pointLight.position.set(2, 3, 4)
-scene.add(pointLight)
+    setupResize() {
+        window.addEventListener("resize", this.resize.bind(this));
+    }
 
+    resize() {
+        this.width = this.container.offsetWidth;
+        this.height = this.container.offsetHeight;
+        this.renderer.setSize(this.width, this.height);
+        this.camera.updateProjectionMatrix();
+    }
 
-const canvas = document.getElementById("loading-page-canvas")
-const renderer = new THREE.WebGLRenderer({
-    canvas,
-    alpha: true
-})
-const stats = new Stats()
-stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
-document.body.appendChild(stats.dom)
-renderer.setSize(sizes.width, sizes.height)
-renderer.setPixelRatio(Math.min(window.devicePixelRatio), 2)
+    addObjects() {
+        let that = this;
 
-const controls = new OrbitControls(camera, renderer.domElement);
+        let count = 10000
+        let min_radius = .5;
+        let max_radius = 1;
 
-controls.update();
+        let particleGeo = new THREE.PlaneBufferGeometry(1, 1);
+        let geo = new THREE.InstancedBufferGeometry();
+        geo.instanceCount = count;
+        geo.setAttribute('position', particleGeo.getAttribute('position'));
+        geo.index = particleGeo.index;
 
-const clock = new THREE.Clock()
-function animate() {
+        let pos = new Float32Array(count * 3)
 
-    stats.begin();
+        for (let i = 0; i < count; i++) {
+            let angle = Math.random() * 2 * Math.PI;
+            let r = lerp(min_radius, max_radius, Math.random())
 
-    controls.update();
-    mixer?.update(clock.getDelta())
+            let x = r * Math.sin(angle);
+            let y = (Math.random() - .5) * .05;
+            let z = r * Math.cos(angle);
 
-    renderer.render(scene, camera);
-    stats.end();
+            pos.set([
+                x, y, z
+            ], i * 3)
+        }
 
-    requestAnimationFrame(animate);
+        geo.setAttribute('pos', new THREE.InstancedBufferAttribute(pos, 3, false))
+
+        this.material = new THREE.ShaderMaterial({
+            extensions: {
+                derivatives:
+                    "#extension GL_OES_standard_derivatives : enable",
+            },
+            side: THREE.DoubleSide,
+            uniforms: {
+                uTexture : { value: new THREE.TextureLoader().load(starTexture)},
+                time: { value: 0 },
+                resolution: { value: new THREE.Vector4() },
+            },
+            transparent: true,
+            depthTest: false,
+            vertexShader: vertex,
+            fragmentShader: fragment,
+        });
+
+        this.geometry = new THREE.PlaneGeometry(1, 1, 1, 1);
+
+        this.points = new THREE.Mesh(geo, this.material);
+        this.scene.add(this.points);
+    }
+
+    render() {
+        this.renderer.render(this.scene, this.camera);
+        window.requestAnimationFrame(this.render.bind(this));
+    }
 }
 
-animate()
+new Sketch({
+    dom: document.getElementById("container"),
+});

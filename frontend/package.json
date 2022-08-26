@@ -21,7 +21,8 @@
     "rehype-autolink-headings": "^6.1.1",
     "rehype-prism-plus": "^1.4.2",
     "rehype-slug": "^5.0.1",
-    "three": "^0.143.0"
+    "three": "^0.143.0",
+    "vite-plugin-glsl": "^0.3.0"
   },
   "dependencies": {
     "stats.js": "^0.17.0"
