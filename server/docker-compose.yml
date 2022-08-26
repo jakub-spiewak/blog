@@ -4,8 +4,8 @@ services:
 
   server:
     container_name: server
-    image: jakubspiewak-blog-server:latest
-    restart: on-failure
+    image: ghcr.io/jakub-spiewak/jakubspiewak-blog-server:latest
+#    restart: on-failure
     ports:
       - "8080:8080"
     depends_on:
@@ -15,8 +15,6 @@ services:
     container_name: mongodb
     image: mongo
     restart: always
-    ports:
-      - "27017:27017"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=root1

@@ -17,7 +17,7 @@ class StatisticsFilter(private val service: StatisticsService) : OrderedWebFilte
 
         return service.getStatisticByPath(path)
             .map { StatisticsEntity(id = it.id, path = it.path, hits = it.hits + 1) }
-            .switchIfEmpty(Mono.fromSupplier { StatisticsEntity(path = path, hits = 1)})
+            .switchIfEmpty(Mono.fromSupplier { StatisticsEntity(path = path) })
             .flatMap { service.saveStatistics(it) }
             .and(chain.filter(exchange))
     }

@@ -4,15 +4,17 @@ import org.bson.types.ObjectId
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
+import org.springframework.stereotype.Indexed
 
+@Indexed
 @Document
-data class StatisticsEntity(
+class StatisticsEntity(
     @Id
-    val id: ObjectId = ObjectId.get(),
+    var id: ObjectId = ObjectId.get(),
     @Field(PATH_FIELD)
-    val path: String,
+    var path: String = "",
     @Field(HITS_FIELD)
-    val hits: Int
+    var hits: Int = 1
 ) {
     companion object {
         const val PATH_FIELD = "path"

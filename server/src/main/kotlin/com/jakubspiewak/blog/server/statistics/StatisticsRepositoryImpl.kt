@@ -7,9 +7,11 @@ import org.springframework.data.mongodb.core.ReactiveMongoOperations
 import org.springframework.data.mongodb.core.query.Criteria.where
 import org.springframework.data.mongodb.core.query.Query
 import org.springframework.stereotype.Component
+import org.springframework.stereotype.Indexed
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
+@Indexed
 @Component
 class StatisticsRepositoryImpl(private val operations: ReactiveMongoOperations) : StatisticsRepository {
     override fun findAll(): Flux<StatisticsEntity> = operations.find(

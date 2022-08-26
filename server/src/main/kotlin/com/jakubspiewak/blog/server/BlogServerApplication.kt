@@ -2,11 +2,10 @@ package com.jakubspiewak.blog.server
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories
-import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories
+import org.springframework.data.mongodb.config.EnableReactiveMongoAuditing
 
-@EnableReactiveMongoRepositories
 @SpringBootApplication
+@EnableReactiveMongoAuditing
 class BlogServerApplication
 
 fun main(args: Array<String>) {

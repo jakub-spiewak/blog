@@ -11,7 +11,6 @@ import reactor.core.publisher.Flux
 class StatisticsController(private val service: StatisticsService) {
     @GetMapping()
     fun getStatistics(@RequestParam(name = "prefix", required = false) prefix: List<String>?): Flux<StatisticsResponse> {
-        println(prefix)
         if (prefix.isNullOrEmpty()) return service.getAllStatistics()
 
         return service.getAllStatisticsStartingWith(prefix.joinToString("/"))

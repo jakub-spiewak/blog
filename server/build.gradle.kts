@@ -10,6 +10,10 @@ plugins {
     kotlin("plugin.spring") version "1.6.21"
 }
 
+springAot {
+    removeSpelSupport.set(true)
+}
+
 group = "com.jakubspiewak.blog"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
@@ -26,11 +30,11 @@ dependencies {
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-    implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
-    implementation("org.springframework.cloud:spring-cloud-starter-gateway")
-    implementation("org.springframework.data:spring-data-commons")
+    implementation("org.mongodb:mongodb-driver-reactivestreams")
+//    implementation("org.springframework.boot:spring-boot-configuration-processor")
+//    implementation("org.springframework.experimental:spring-aot-gradle-plugin:0.9.1")
 }
 
 dependencyManagement {
@@ -40,23 +44,26 @@ dependencyManagement {
 }
 
 tasks.withType<KotlinCompile> {
+    dependsOn("adjustErrorPages")
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "17"
     }
 }
 
-tasks.withType<BootBuildImage> {
-    builder = "paketobuildpacks/builder:tiny"
-    environment = mapOf("BP_NATIVE_IMAGE" to "true")
-}
-
-tasks.named("compileKotlin") {
-    dependsOn("adjustErrorPages")
-}
-
 tasks.named<BootBuildImage>("bootBuildImage") {
-    imageName = "jakubspiewak-blog-server"
+    isPublish = true
+    imageName = "ghcr.io/jakub-spiewak/jakubspiewak-blog-server:latest"
+//    TODO: support native builds: problem with the StatisticEntity constructor and reflection
+//    builder = "paketobuildpacks/builder:tiny"
+//    environment = mapOf("BP_NATIVE_IMAGE" to "true")
+    docker {
+        publishRegistry {
+            username = "jakub-spiewak"
+            password = System.getenv("CR_PAT") ?: throw Exception("CR_PAT environment variable is undefined!")
+            url = "https://ghcr.io"
+        }
+    }
 }
 
 tasks.register("buildFrontend") {
@@ -64,7 +71,7 @@ tasks.register("buildFrontend") {
         val forceBuildFrontend = project.properties["forceBuildFrontend"].toString() == "true"
         val frontendIsBuilt = File("${projectDir.absolutePath}/../frontend/dist").exists()
         if (!forceBuildFrontend && frontendIsBuilt) {
-            println("Build frontend folder exist. Omitting building process!")
+            println("Omitting building process!")
             return@doFirst
         }
 
