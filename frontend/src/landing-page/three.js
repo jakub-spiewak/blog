@@ -8,7 +8,7 @@ import starTexture from './star.jpg';
 const lerp = (a, b, t) => (a * (1 - t)) + b * t;
 const smoothstep = (x) => x * x ;
 
-class Sketch {
+export default class Sketch {
     constructor(options2) {
         this.scene = new THREE.Scene();
 
@@ -78,9 +78,7 @@ class Sketch {
         this.clock = new THREE.Clock();
 
         this.resize();
-        this.render();
         this.setupResize();
-        // this.settings()
     }
 
     raycasterEvent() {
@@ -193,6 +191,3 @@ class Sketch {
     }
 }
 
-new Sketch({
-    dom: document.getElementById("container"),
-});

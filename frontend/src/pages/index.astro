@@ -1,8 +1,16 @@
-<!DOCTYPE html>
+---
+import Icons from "@components/common/Icons.astro";
+import "../styles/base.css"
+---
+
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <style>
+            @font-face {
+                font-family: Magiel;
+                src: url("font/Magiel-Black.woff");
+            }
             * {
                 margin: 0;
                 padding: 0;
@@ -14,13 +22,40 @@
                 width: 100vw;
                 height: 100vh;
             }
+            .content {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translateX(-50%) translateY(-50%);
+            }
+            .content h1 {
+                font-family: Magiel;
+                font-size: 4em;
+                color: #f79b19;
+            }
         </style>
     </head>
     <body>
+        <div class="content backdrop-blur-sm p-8 bg-slate-600 bg-opacity-10 rounded-lg">
+            <h1>Jakub Śpiewak</h1>
+            <div class="flex justify-around items-center text-white">
+                <Icons />
+                <a class="font-magiel text-xl">Blog</a>
+            </div>
+        </div>
         <div id="container"></div>
-        <script
+        <!-- <script
             src={(await import("../landing-page/three.js?url")).default}
             type="module"
-        ></script>
+        ></script> -->
+        <script>
+            import Sketch from "../landing-page/three.js";
+
+            const sketch = new Sketch({
+                dom: document.getElementById("container"),
+            });
+
+            sketch.render();
+        </script>
     </body>
 </html>
