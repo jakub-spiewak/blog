@@ -1,3 +1,7 @@
+uniform float time;
+uniform float size;
+uniform vec3 uMouse;
+
 varying vec2 vUv;
 attribute vec3 pos;
 
@@ -90,22 +94,62 @@ float cnoise(vec3 P) {
     return 2.2 * n_xyz;
 }
 
-// float saturate(float x) {
-//     return clamp(x, 0.0, 1.0);
-// }
+mat3 rotation3dY(float angle) {
+    float s = sin(angle);
+    float c = cos(angle);
+
+    return mat3(
+        c, 0.0, -s,
+        0.0, 1.0, 0.0,
+        s, 0.0, c
+    );
+}
+
+float saturate(float x) {
+    return clamp(x, 0.0, 1.0);
+}
+
+vec3 fbm_vec3(vec3 p, float frequency, float offset) {
+    return vec3(
+        cnoise((p + vec3(offset)) * frequency),
+        cnoise((p + vec3(offset + 20.)) * frequency),
+        cnoise((p + vec3(offset - 30.)) * frequency)
+    );
+}
+
+vec3 getOffset(vec3 p) {
+    float twist_scale = cnoise(pos) * 0.5 + 0.5;
+    vec3 tempPos = rotation3dY(time * (0.5 + 0.5 * twist_scale) + length(pos.xz)) * p;
+    vec3 offset = fbm_vec3(pos, 0.5, 0.);
+    return offset * 0.2;
+}
 
 void main() {
     vUv = position.xy + vec2(0.5);
     vec3 finalPos = pos + position * 0.1;
 
-    float particle_size = cnoise(pos) * 0.5 + 0.5;
-    particle_size = particle_size * 0.3;
+    float particle_size = cnoise(pos * 5.) * 0.5 + 0.5;
+    // particle_size = particle_size * 0.15;
 
-    vec3 particle_position = (modelMatrix * vec4(pos, 1.)).xyz;
+    vec3 world_pos = rotation3dY(time * 0.3 * (0.1 + 0.5 * particle_size)) * pos;
+
+    vec3 offset0 = getOffset(world_pos);
+    vec3 offset = fbm_vec3(world_pos + offset0, 0., 0.);
+
+    vec3 particle_position = (modelMatrix * vec4(world_pos + offset, 1.)).xyz;
+
+
+    float distanceToMouse = pow(1. - clamp(length(uMouse.xz - particle_position.xz) -0.3, 0., 1.), 4.);
+
+    vec3 dir = particle_position - uMouse;
+
+    // particle_position.y += distanceToMouse * 0.2;
+    particle_position = mix(particle_position, uMouse + normalize(dir) * 0.2, distanceToMouse);
+
 
     vec4 view_pos = viewMatrix * vec4(particle_position, 1.);
 
-    view_pos.xyz += position * (0.01 + 0.5 * particle_size);
+    view_pos.xyz += position * size * (0.01 + 0.1 * particle_size);
 
     // gl_Position = projectionMatrix * modelViewMatrix * viewMatrix * vec4(finalPos, 1.0);
     gl_Position = projectionMatrix * view_pos;
