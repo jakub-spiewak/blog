@@ -1,12 +1,12 @@
-uniform float time;
-uniform float size;
-uniform vec3 uMouse;
+attribute vec3 aPosition;
+attribute float aRand;
+
+uniform float uTime;
+uniform float uSize;
 
 varying vec2 vUv;
-attribute vec3 pos;
-attribute float color_index;
-varying float len;
-varying float vColorIndex;
+varying float vRand;
+varying vec4 vPosDelta;
 
 vec3 mod289(vec3 x) {
     return x - floor(x * (1.0 / 289.0)) * 289.0;
@@ -101,60 +101,38 @@ mat3 rotation3dY(float angle) {
     float s = sin(angle);
     float c = cos(angle);
 
-    return mat3(
-        c, 0.0, -s,
-        0.0, 1.0, 0.0,
-        s, 0.0, c
-    );
-}
-
-float saturate(float x) {
-    return clamp(x, 0.0, 1.0);
+    return mat3(c, 0.0, -s, 0.0, 1.0, 0.0, s, 0.0, c);
 }
 
 vec3 fbm_vec3(vec3 p, float frequency, float offset) {
-    return vec3(
-        cnoise((p + vec3(offset)) * frequency),
-        cnoise((p + vec3(offset + 20.)) * frequency),
-        cnoise((p + vec3(offset - 30.)) * frequency)
-    );
+    return vec3(cnoise((p + vec3(offset)) * frequency), cnoise((p + vec3(offset + 20.)) * frequency), cnoise((p + vec3(offset - 30.)) * frequency));
 }
 
 vec3 getOffset(vec3 p) {
-    float twist_scale = cnoise(pos) * 0.5 + 0.5;
-    vec3 tempPos = rotation3dY(time * (0.5 + 0.5 * twist_scale) + length(pos.xz)) * p;
-    vec3 offset = fbm_vec3(tempPos, 0.9, 0.);
-    return offset * 0.2;
+    float _twistScale = cnoise(aPosition) * 0.5 + 0.5;
+    vec3 _temporaryPosition = rotation3dY(uTime * (0.5 + 0.5 * _twistScale) + length(aPosition.xz)) * p;
+    return fbm_vec3(_temporaryPosition, 0.9, 0.2);
+}
+
+vec4 getPosition(float time) {
+    float _particleSize = cnoise(aPosition * 5.) * 0.5 + 0.5;
+
+    vec3 _worldPosition = rotation3dY(time * (0.1 + 0.5 * _particleSize)) * aPosition;
+
+    vec3 _offset = fbm_vec3(_worldPosition + getOffset(_worldPosition), 0., 0.8);
+
+    vec3 _particlePosition = (modelMatrix * vec4(_worldPosition + _offset, 1.)).xyz;
+
+    vec4 _viewPosition = viewMatrix * vec4(_particlePosition, 1.);
+
+    _viewPosition.xyz += position * uSize * (0.01 + 0.1 * _particleSize);
+
+    return projectionMatrix * _viewPosition;
 }
 
 void main() {
     vUv = position.xy + vec2(0.5);
+    vRand = aRand;
 
-    float particle_size = cnoise(pos * 5.) * 0.5 + 0.5;
-    // particle_size = particle_size * 0.15;
-    len = length(particle_size);
-    vColorIndex = color_index;
-
-    vec3 world_pos = rotation3dY(time * 0.3 * (0.1 + 0.5 * particle_size)) * pos;
-
-    vec3 offset0 = getOffset(world_pos);
-    vec3 offset = fbm_vec3(world_pos + offset0, 0., 0.5);
-
-    vec3 particle_position = (modelMatrix * vec4(world_pos + offset, 1.)).xyz;
-
-
-    float distanceToMouse = pow(1. - clamp(length(uMouse.xz - particle_position.xz) -0.3, 0., 1.), 4.);
-
-    vec3 dir = particle_position - uMouse;
-
-    // particle_position.y += distanceToMouse * 0.2;
-    particle_position = mix(particle_position, uMouse + normalize(dir) * 0.4, distanceToMouse);
-
-
-    vec4 view_pos = viewMatrix * vec4(particle_position, 1.);
-
-    view_pos.xyz += position * size * (0.01 + 0.1 * particle_size);
-
-    // gl_Position = projectionMatrix * modelViewMatrix * viewMatrix * vec4(finalPos, 1.0);
-    gl_Position = projectionMatrix * view_pos;
+    gl_Position = getPosition(uTime + 10.);
 }
