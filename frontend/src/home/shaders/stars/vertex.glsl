@@ -3,10 +3,10 @@ attribute float aRand;
 
 uniform float uTime;
 uniform float uSize;
+uniform float uMagitiude;
 
 varying vec2 vUv;
 varying float vRand;
-varying vec4 vPosDelta;
 
 vec3 mod289(vec3 x) {
     return x - floor(x * (1.0 / 289.0)) * 289.0;
@@ -121,7 +121,9 @@ vec4 getPosition(float time) {
 
     vec3 _offset = fbm_vec3(_worldPosition + getOffset(_worldPosition), 0., 0.8);
 
-    vec3 _particlePosition = (modelMatrix * vec4(_worldPosition + _offset, 1.)).xyz;
+    vec3 _particleOutDirection = vec3(cnoise(aPosition));
+
+    vec3 _particlePosition = (modelMatrix * vec4(_worldPosition + _offset, 1.)).xyz + (_particleOutDirection * 5.);
 
     vec4 _viewPosition = viewMatrix * vec4(_particlePosition, 1.);
 
@@ -134,5 +136,5 @@ void main() {
     vUv = position.xy + vec2(0.5);
     vRand = aRand;
 
-    gl_Position = getPosition(uTime + 10.);
+    gl_Position = getPosition(uTime);
 }

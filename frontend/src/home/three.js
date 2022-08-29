@@ -3,6 +3,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 export default class Scene {
     constructor({ dom }) {
+        this.onRenderActions = []
         this.scene = new THREE.Scene();
 
         this.container = dom;
@@ -33,6 +34,10 @@ export default class Scene {
             this.renderer.domElement
         );
 
+        this.light = new THREE.PointLight(0xdfdfdf, 0.7)
+        this.light.position.set(2, 2, 2)
+        this.scene.add(this.light)
+
 
         this.resize();
         this.setupResize();
@@ -52,9 +57,7 @@ export default class Scene {
     }
 
     render() {
-        this.materials.forEach(material => {
-            material.uniforms.uTime.value = this.clock.getElapsedTime() * .5
-        });
+        this.onRenderActions.forEach(a => a())
         requestAnimationFrame(this.render.bind(this));
         this.renderer.render(this.scene, this.camera);
     }

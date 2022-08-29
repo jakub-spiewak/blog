@@ -39,10 +39,10 @@ import "../styles/base.css";
             #container {
                 width: 100vw;
                 height: 100vh;
-                background-color: 0x121821;
+                background-color: #121821;
             }
             body {
-                background-color: 0x121821;
+                background-color: #121821;
                 width: 100vw;
                 height: 100vh;
             }
@@ -53,16 +53,21 @@ import "../styles/base.css";
         <script>
             import Three from "../home/three.js";
             import Stars from "../home/models/stars.js";
+            // import Astronaut from "../home/models/astronaut.js";
 
             const three = new Three({
                 dom: document.getElementById("container"),
             });
 
-            const stars = new Stars();
-            three.materials.push(...stars.materials);
-            three.scene.add(...stars.variants);
+            const stars = new Stars({scene: three.scene});
+            // const astronaut = new Astronaut({scene: three.scene})
 
+            three.onRenderActions.push(
+                () => stars.onRender(),
+                // () => astronaut.onRender(),
+            )
             three.render();
+            console.log('aas')
         </script>
     </body>
 </html>

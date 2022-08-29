@@ -3,14 +3,19 @@ import * as THREE from "three";
 import starsVertexShader from '../shaders/stars/vertex.glsl';
 import starsFragmentShader from '../shaders/stars/fragment.glsl'
 import starTexture from '../textures/star.jpg';
+import { GUI } from 'dat.gui'
 
 const lerp = (a, b, t) => (a * (1 - t)) + b * t;
 const smoothstep = (x) => x * x;
 
 export default class Stars {
-    constructor() {
+    constructor({ scene }) {
         this.materials = []
-        this.variants = []
+        this.scene = scene;
+        this.clock = new THREE.Clock()
+        this.gui = new GUI()
+        this.v = 0;
+        this.orbitFolder = this.gui.addFolder('Orbit')
 
         const variants = [
             {
@@ -70,23 +75,34 @@ export default class Stars {
                 derivatives:
                     "#extension GL_OES_standard_derivatives : enable",
             },
-            side: THREE.DoubleSide,
+            side: THREE.FrontSide,
             uniforms: {
                 uTexture: { value: new THREE.TextureLoader().load(starTexture) },
                 uTime: { value: 0 },
                 uSize: { value: option.size },
+                uMagitiude: { value: 0 }
             },
             transparent: true,
-            depthTest: false,
+            blendEquation: THREE.SubtractEquation,
+            depthFunc: THREE.LessDepth,
+            depthWrite: false,
             vertexShader: starsVertexShader,
             fragmentShader: starsFragmentShader,
             clipping: true
         });
 
+        this.orbitFolder.add(starMaterial.uniforms.uMagitiude, 'value', 0, 1)
+        this.orbitFolder.open()
 
         const stars = new THREE.Mesh(particlesGeometry, starMaterial);
         this.materials.push(starMaterial)
-        this.variants.push(stars)
+        this.scene.add(stars)
+    }
+
+    onRender() {
+        this.materials.forEach(material => {
+            material.uniforms.uTime.value = this.clock.getElapsedTime()
+        })
     }
 
 }
