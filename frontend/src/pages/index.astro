@@ -1,6 +1,5 @@
 ---
 import Icons from "@components/common/Icons.astro";
-import "../styles/base.css";
 ---
 
 <html lang="en">
@@ -28,17 +27,21 @@ import "../styles/base.css";
         <meta property="og:site_name" content="Jakub Śpiewak Blog" />
         <meta property="og:author" content="Jakub Śpiewak" />
 
-        <style>
+        <style is:global>
+            @font-face {
+                font-family: Magiel;
+                src: url("/font/Magiel-Black.woff");
+            }
             * {
                 margin: 0;
                 padding: 0;
+                --ether-color-secondary2: #f79b19;
+                --ether-color-secondary1: #028fa3;
             }
             canvas {
                 display: block;
             }
             #container {
-                width: 100vw;
-                height: 100vh;
                 background-color: #121821;
             }
             body {
@@ -46,28 +49,96 @@ import "../styles/base.css";
                 width: 100vw;
                 height: 100vh;
             }
+
+            .main {
+                position: absolute;
+                top: 2em;
+                left: 0;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: var(--ether-color-secondary2);
+            }
+            .title {
+                font-family: Magiel, sans-serif;
+                font-size: 4em;
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            .navigation {
+                display: flex;
+                gap: 3em;
+                justify-content: space-between;
+                align-items: center;
+                transform: translateY(-200%);
+                transform: scale(0);
+                opacity: 0;
+            }
+            a :hover {
+                color: var(--ether-color-secondary1);
+            }
+            .blog-link {
+                font-family: Magiel, sans-serif;
+                font-size: 1.5em;
+            }
+            .blog-link :hover {
+                color: var(--ether-color-secondary1);
+            }
+
+            @media only screen and (max-width: 600px) {
+                .title {
+                    font-size: 3em;
+                }
+                .navigation {
+                    gap: 2em;
+                }
+            }
         </style>
     </head>
     <body>
+        <main class="main">
+            <div class="title">Jakub Śpiewak</div>
+            <nav class="navigation">
+                <Icons />
+                <a class="blog-link" href="/blog">Blog</a>
+            </nav>
+        </main>
         <div id="container"></div>
+        <script>
+            import gsap from "gsap";
+            gsap.to(document.querySelector(".title"), {
+                duration: 2,
+                // translateY: 0,
+                opacity: 1,
+                scale: 1,
+            });
+            gsap.to(document.querySelector(".navigation"), {
+                delay: 2,
+                duration: 2,
+                translateY: 0,
+                opacity: 1,
+                scale: 1,
+            });
+        </script>
         <script>
             import Three from "../home/three.js";
             import Stars from "../home/models/stars.js";
-            // import Astronaut from "../home/models/astronaut.js";
 
             const three = new Three({
                 dom: document.getElementById("container"),
             });
 
-            const stars = new Stars({scene: three.scene});
-            // const astronaut = new Astronaut({scene: three.scene})
-
-            three.onRenderActions.push(
-                () => stars.onRender(),
-                // () => astronaut.onRender(),
-            )
+            const stars = new Stars({
+                scene: three.scene,
+                camera: three.camera,
+            });
+            three.onRenderActions.push(() => stars.onRender());
             three.render();
-            console.log('aas')
+            // console.log("ne elo ziomeczku");
         </script>
     </body>
 </html>

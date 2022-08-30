@@ -1,5 +1,9 @@
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+// import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+// import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+// import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
+// import gsap from "gsap";
 
 export default class Scene {
     constructor({ dom }) {
@@ -28,20 +32,25 @@ export default class Scene {
             1000
         );
 
-        this.camera.position.set(0, 2, 2);
-        this.controls = new OrbitControls(
-            this.camera,
-            this.renderer.domElement
-        );
+        this.camera.position.set(.0, 2, 0);
+        this.camera.rotation.set(0, .0, .0);
+        // this.controls = new OrbitControls(
+        //     this.camera,
+        //     this.renderer.domElement
+        // );
 
-        this.light = new THREE.PointLight(0xdfdfdf, 0.7)
-        this.light.position.set(2, 2, 2)
-        this.scene.add(this.light)
+        // this.composer = new EffectComposer(this.renderer);
+        // this.renderPass = new RenderPass(this.scene, this.camera);
+        // this.composer.addPass(this.renderPass);
 
+        // this.glitchPass = new GlitchPass(2);
+        // this.glitchPass.goWild = true;
+        // this.composer.addPass(this.glitchPass);
 
         this.resize();
         this.setupResize();
         this.materials = []
+        this.out = false
     }
 
     setupResize() {
@@ -59,7 +68,8 @@ export default class Scene {
     render() {
         this.onRenderActions.forEach(a => a())
         requestAnimationFrame(this.render.bind(this));
-        this.renderer.render(this.scene, this.camera);
+        this.renderer.render(this.scene, this.camera)
+        // this.composer.render()
     }
 }
 

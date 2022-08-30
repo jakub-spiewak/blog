@@ -3,44 +3,68 @@ import * as THREE from "three";
 import starsVertexShader from '../shaders/stars/vertex.glsl';
 import starsFragmentShader from '../shaders/stars/fragment.glsl'
 import starTexture from '../textures/star.jpg';
-import { GUI } from 'dat.gui'
+import gsap from "gsap";
 
 const lerp = (a, b, t) => (a * (1 - t)) + b * t;
 const smoothstep = (x) => x * x;
 
 export default class Stars {
-    constructor({ scene }) {
+    constructor({ scene, camera }) {
+        this.settings = {
+            magnitiude: 0
+        }
         this.materials = []
         this.scene = scene;
         this.clock = new THREE.Clock()
-        this.gui = new GUI()
-        this.v = 0;
-        this.orbitFolder = this.gui.addFolder('Orbit')
+        this.camera = camera
+
+        this.raycaster = new THREE.Raycaster();
+        this.pointer = new THREE.Vector2();
+        this.point = new THREE.Vector3(-1000, -1000, -1000);
 
         const variants = [
             {
                 minRadius: 1,
                 maxRadius: 8,
                 size: 2,
-                count: 3000
+                count: 2000
             },
             {
                 minRadius: .5,
                 maxRadius: 6,
-                size: .6,
-                count: 5000
+                size: .8,
+                count: 2500
             },
             {
                 minRadius: .2,
                 maxRadius: 4,
-                size: .2,
-                count: 15000
+                size: .4,
+                count: 10000
             },
         ];
 
         variants.forEach(option => {
             this.addStars(option)
         });
+
+        let mesh = new THREE.Mesh(
+            new THREE.PlaneBufferGeometry(32, 32, 10, 10).rotateX(-Math.PI / 2),
+            new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true })
+        )
+
+        document.addEventListener('pointermove', (event) => {
+            this.pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+            this.pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            this.raycaster.setFromCamera(this.pointer, this.camera)
+
+            const intersects = this.raycaster.intersectObjects([mesh])
+
+            if (intersects[0]) {
+                this.point.copy(intersects[0].point)
+            }
+        })
+
     }
 
     addStars(option) {
@@ -80,7 +104,8 @@ export default class Stars {
                 uTexture: { value: new THREE.TextureLoader().load(starTexture) },
                 uTime: { value: 0 },
                 uSize: { value: option.size },
-                uMagitiude: { value: 0 }
+                uMouse: { value: new THREE.Vector3() },
+                uMagitiude: { value: 1 }
             },
             transparent: true,
             blendEquation: THREE.SubtractEquation,
@@ -91,17 +116,36 @@ export default class Stars {
             clipping: true
         });
 
-        this.orbitFolder.add(starMaterial.uniforms.uMagitiude, 'value', 0, 1)
-        this.orbitFolder.open()
+        document.addEventListener('click', () => {
+            if (starMaterial.uniforms.uMagitiude.value < 0.2) {
+                gsap.to(starMaterial.uniforms.uMagitiude, {
+                    duration: 2,
+                    value: 1,
+                })
+            } else {
+                gsap.to(starMaterial.uniforms.uMagitiude, {
+                    duration: 2,
+                    value: 0,
+                })
+            }
+        })
+
+        gsap.to(starMaterial.uniforms.uMagitiude, {
+            duration: 2,
+            value: 0,
+            delay: 2
+        })
 
         const stars = new THREE.Mesh(particlesGeometry, starMaterial);
         this.materials.push(starMaterial)
-        this.scene.add(stars)
+        this.scene.add(stars);
+
     }
 
     onRender() {
         this.materials.forEach(material => {
             material.uniforms.uTime.value = this.clock.getElapsedTime()
+            material.uniforms.uMouse.value = this.point
         })
     }
 
