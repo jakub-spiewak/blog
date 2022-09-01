@@ -135,7 +135,7 @@ void main() {
 
 
     vec3 _particleOutDirection = _particlePosition * uMagitiude;
-    _particleOutDirection.y = _worldPosition.y * 16. * uMagitiude;
+    _particleOutDirection.y = _worldPosition.y * 8. * uMagitiude;
 
     vec4 _viewPosition = viewMatrix * vec4(_particlePosition + (_particleOutDirection * 10.), 1.);
 

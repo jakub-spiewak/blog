@@ -6,7 +6,7 @@ import starTexture from '../textures/star.jpg';
 import gsap from "gsap";
 
 const lerp = (a, b, t) => (a * (1 - t)) + b * t;
-const smoothstep = (x) => x * x;
+const smoothstep = (x) => x * x * 0.5;
 
 export default class Stars {
     constructor({ scene, camera }) {
@@ -27,19 +27,19 @@ export default class Stars {
                 minRadius: 1,
                 maxRadius: 8,
                 size: 2,
-                count: 2000
+                count: 1000
             },
             {
                 minRadius: .5,
                 maxRadius: 6,
                 size: .8,
-                count: 2500
+                count: 3000
             },
             {
                 minRadius: .2,
                 maxRadius: 4,
                 size: .4,
-                count: 10000
+                count: 4000
             },
         ];
 

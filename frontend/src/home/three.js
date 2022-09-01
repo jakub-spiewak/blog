@@ -1,8 +1,10 @@
+import { GUI } from "dat.gui";
 import * as THREE from "three";
-// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-// import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
-// import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
-// import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js'
+// import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 // import gsap from "gsap";
 
 export default class Scene {
@@ -32,20 +34,26 @@ export default class Scene {
             1000
         );
 
-        this.camera.position.set(.0, 2, 0);
-        this.camera.rotation.set(0, .0, .0);
         // this.controls = new OrbitControls(
-        //     this.camera,
-        //     this.renderer.domElement
+        // this.camera,
+        // this.renderer.domElement
         // );
 
-        // this.composer = new EffectComposer(this.renderer);
-        // this.renderPass = new RenderPass(this.scene, this.camera);
-        // this.composer.addPass(this.renderPass);
+        this.camera.position.set(-1., 1.5, 2.5)
+        this.camera.rotation.set(-1., 0, 0)
 
-        // this.glitchPass = new GlitchPass(2);
-        // this.glitchPass.goWild = true;
-        // this.composer.addPass(this.glitchPass);
+
+        this.composer = new EffectComposer(this.renderer);
+
+        this.renderPass = new RenderPass(this.scene, this.camera);
+        this.composer.addPass(this.renderPass);
+
+        this.glitchPass = new GlitchPass(2);
+        this.composer.addPass(this.glitchPass);
+
+        // this.bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
+        // this.bloomPass.bloomTintColors.push(new THREE.Vector3(1.,2.,3.))
+        // this.composer.addPass(this.bloomPass);
 
         this.resize();
         this.setupResize();
@@ -68,8 +76,8 @@ export default class Scene {
     render() {
         this.onRenderActions.forEach(a => a())
         requestAnimationFrame(this.render.bind(this));
-        this.renderer.render(this.scene, this.camera)
-        // this.composer.render()
+        // this.renderer.render(this.scene, this.camera)
+        this.composer.render()
     }
 }
 

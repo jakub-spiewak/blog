@@ -1,9 +1,7 @@
 uniform sampler2D uTexture;
-uniform float uTime;
 
 varying float vRand;
 varying vec2 vUv;
-varying vec4 vPosDelta;
 
 vec3 color1 = vec3(0.949, 0.701, 0.808);
 vec3 color2 = vec3(0.533, 0.701, 0.808);
@@ -20,6 +18,6 @@ vec3 getColor() {
 
 void main() {
     vec4 tex = texture2D(uTexture, vUv);
-    
+
     gl_FragColor = vec4(getColor(), tex.r);
 }
