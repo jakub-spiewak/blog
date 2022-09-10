@@ -1,11 +1,7 @@
-import { GUI } from "dat.gui";
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js'
-// import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
-// import gsap from "gsap";
 
 export default class Scene {
     constructor({ dom }) {
@@ -34,14 +30,8 @@ export default class Scene {
             1000
         );
 
-        // this.controls = new OrbitControls(
-        // this.camera,
-        // this.renderer.domElement
-        // );
-
         this.camera.position.set(-1., 1.5, 2.5)
         this.camera.rotation.set(-1., 0, 0)
-
 
         this.composer = new EffectComposer(this.renderer);
 
@@ -76,7 +66,6 @@ export default class Scene {
     render() {
         this.onRenderActions.forEach(a => a())
         requestAnimationFrame(this.render.bind(this));
-        // this.renderer.render(this.scene, this.camera)
         this.composer.render()
     }
 }
