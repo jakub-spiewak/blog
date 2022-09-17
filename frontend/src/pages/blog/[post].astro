@@ -56,9 +56,9 @@ const tags = post.frontmatter.tags;
     <PostTitle frontmatter={post.frontmatter} />
     <main
         role="main"
-        class="container-main pt-8 grid gap-8 grid-cols-1 sm:grid-cols-2 md:[grid-template-columns:1fr_auto] md:[grid-template-rows:auto_1fr] xl:[grid-template-columns:1fr_auto_1fr] xl:order-none"
+        class="container-main pt-8 grid gap-8 grid-cols-1 sm:[grid-template-columns:1fr_1fr] md:[grid-template-rows:auto_1fr] lg:[grid-template-columns:1fr_auto] xl:[grid-template-columns:1fr_auto_1fr] xl:order-none"
     >
-        <aside class="md:order-3 xl:order-none">
+        <aside class="sm:order-3 md:order-1 lg:order-1 xl:order-none justify-self-start">
             <div
                 class="sticky top-24 px-2 md:max-w-xs md:ml-auto xl:max-w-none xl:ml-0"
             >
@@ -67,12 +67,12 @@ const tags = post.frontmatter.tags;
         </aside>
         <article
             id="post-article-content"
-            class="-mt-14 order-last max-w-full mx-auto px-2 overflow-hidden prose md:prose-lg lg:max-w-prose prose-a:text-ether-secondary1 prose-strong:text-ether-text2 sm:order-last sm:col-span-2 md:row-span-2 md:col-span-1 md:order-2 xl:order-none xl:row-span-1"
+            class="-mt-14 order-last max-w-full mx-auto px-2 overflow-hidden prose md:prose-lg lg:max-w-prose prose-a:text-ether-secondary1 prose-strong:text-ether-text2 prose-blockquote:text-ether-text3 sm:order-last sm:col-span-2 lg:row-span-2 lg:col-span-1 lg:order-2 xl:order-none xl:row-span-1"
         >
             <PostContent name={post.frontmatter.title} />
             <PostComments />
         </article>
-        <aside class="md:order-1 xl:order-none">
+        <aside class="sm:order-1 md:order-2 lg:order-3 xl:order-none md:max-w-xs">
             <div class="sticky top-24 px-2 xl:max-w-none xl:ml-0">
                 <PostInfo tags={tags} prev={prev} next={next} />
             </div>

@@ -1,9 +1,9 @@
 import rss from '@astrojs/rss';
-import { markdownFiles } from '../util/file.util.astro'
+import {markdownFiles} from '../util/file.util.astro'
 
 export const get = () => rss({
     title: 'Jakub Śpiewak Blog',
-    description: 'A humble blog closly related to the web development, microservices and so on',
+    description: 'A humble blog closely related to the web development, microservices and so on',
     site: import.meta.env.SITE,
     items: markdownFiles.map((post) => ({
         link: `blog/${post.slug}`,

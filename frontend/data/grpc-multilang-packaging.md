@@ -1,7 +1,7 @@
 ---
 title: gRPC multi-language packaging
 date: '2022-07-21'
-tags: ['grpc', 'protobuf', 'bash', 'ci/cd', 'java', 'kotlin', 'gradle', 'jdk', 'javascript', 'typescript']
+tags: ['grpc', 'protobuf', 'bash', 'script', 'automation', 'ci/cd', 'java', 'kotlin', 'gradle', 'jdk', 'javascript', 'typescript', 'git']
 draft: false
 summary: 'This article describes how to create script that publishes gRPC generated code that targets multiple languages from one place and, for example, could be used by CI/CD pipeline.'
 images: []
