@@ -22,8 +22,8 @@ In this article, I describe my own approach to resolve this issue.
 We'll create a project consisting of three components:
 
 1. folder with all `.proto` files
-1. folder containing subprojects for each target *language*/*package manager*
-1. script part, which would generate, package and publish code for every subproject mentioned in previous point
+2. folder containing subprojects for each target *language*/*package manager*
+3. script part, which would generate, package and publish code for every subproject mentioned in previous point
 
 In our example, we will work on **Kotlin** and **Web** *(JavaScript with TypeScript declaration)*.
 Script that we are going to create would use: [Protobuf Compiler](https://github.com/protocolbuffers/protobuf)
