@@ -1,6 +1,7 @@
 # ide's
 .idea/
 .vscode/
+.fleet/
 
 # build output
 dist/
@@ -8,6 +9,7 @@ dist/
 # dependencies
 node_modules/
 *.lock
+pnpm-lock.yaml
 
 # logs
 npm-debug.log*
