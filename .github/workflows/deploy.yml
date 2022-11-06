@@ -38,7 +38,6 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - server-build-and-publish-docker-image
-      - ui-build-and-publish-docker-image
 
     steps:
       - name: Pull and run the newest docker images via ssh
