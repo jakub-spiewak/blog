@@ -28,7 +28,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
         env:
           CI: true
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           arguments: bootBuildImage -PpublishImage=true
           build-root-directory: ./server
