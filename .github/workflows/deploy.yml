@@ -27,7 +27,6 @@ jobs:
         working-directory: frontend
         run: yarn
 
-
       - name: Build frontend files
         working-directory: frontend
         run: yarn build
@@ -55,6 +54,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            cd blog
             docker-compose stop
             docker-compose pull
             docker-compose up -d
