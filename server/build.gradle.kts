@@ -51,8 +51,10 @@ tasks.withType<KotlinCompile> {
     }
 }
 
+val publishImage: String? by project
+
 tasks.named<BootBuildImage>("bootBuildImage") {
-    isPublish = true
+    isPublish = publishImage?.equals("true") ?: false
     imageName = "ghcr.io/jakub-spiewak/jakubspiewak-blog-server:latest"
 //    TODO: support native builds: problem with the StatisticEntity constructor and reflection
 //    builder = "paketobuildpacks/builder:tiny"
@@ -60,7 +62,7 @@ tasks.named<BootBuildImage>("bootBuildImage") {
     docker {
         publishRegistry {
             username = "jakub-spiewak"
-            password = System.getenv("GITHUB_TOKEN") ?: throw Exception("GITHUB_TOKEN environment variable is undefined!")
+            password = System.getenv("GITHUB_TOKEN") ?: throw Exception("GITHUB_TOKEN env variable is undefined!")
             url = "https://ghcr.io"
         }
     }
