@@ -20,9 +20,11 @@ jobs:
 
       - name: Setup node
         uses: actions/setup-node@v3
-        working-directory: frontend
         with:
           node-version: 16
+
+      - name: Build frontend files
+        working-directory: frontend
         run: yarn build
 
       - name: Build and push docker image to Github Packages
