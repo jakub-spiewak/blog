@@ -2,7 +2,7 @@
 title: How to handle i18n missing translation
 date: '2022-09-14'
 tags: ['i18n', 'node', 'script', 'git', 'react', 'automation']
-draft: false
+draft: true
 summary: 'This post describes one of many methods to handle and maintain missing translations in i18n and React
 example.'
 images: []
