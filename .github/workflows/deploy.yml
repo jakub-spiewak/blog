@@ -23,6 +23,11 @@ jobs:
         with:
           node-version: 16
 
+      - name: Download dependencies
+        working-directory: frontend
+        run: yarn
+
+
       - name: Build frontend files
         working-directory: frontend
         run: yarn build
