@@ -60,7 +60,7 @@ tasks.named<BootBuildImage>("bootBuildImage") {
     docker {
         publishRegistry {
             username = "jakub-spiewak"
-            password = System.getenv("CR_PAT") ?: throw Exception("CR_PAT environment variable is undefined!")
+            password = System.getenv("GITHUB_TOKEN") ?: throw Exception("GITHUB_TOKEN environment variable is undefined!")
             url = "https://ghcr.io"
         }
     }

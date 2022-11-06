@@ -1,0 +1,55 @@
+name: Build, publish and run docker images on the server
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  server-build-and-publish-docker-image:
+    name: Server - Build and push docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      - name: Setup yarn
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+
+      - name: Build and push docker image to Github Packages
+        uses: gradle/gradle-build-action@v2
+        env:
+          CI: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          arguments: bootBuildImage -PpublishImage=true
+          build-root-directory: ./server
+
+  pull-newest-image-on-server-and-run:
+    name: Pull and run the newest images on server
+    runs-on: ubuntu-latest
+    needs:
+      - server-build-and-publish-docker-image
+      - ui-build-and-publish-docker-image
+
+    steps:
+      - name: Pull and run the newest docker images via ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: jakubspiewak.com
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            docker-compose stop
+            docker-compose pull
+            docker-compose up -d
+            docker image prune -af
+
